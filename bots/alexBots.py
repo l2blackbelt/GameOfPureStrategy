@@ -157,7 +157,7 @@ class LearningBot(ObviousBot):
 	def take_turn(self, game_state, verbose = False):
 
 		#record moves from last round
-		if self.opponent_hand_last_round != None: #if not first round of the first game
+		if self.opponent_hand_last_round != None: #if not first round of a game
 			self.__note_last_move(game_state.current_hands[self.player_to_beat])
 
 
@@ -169,7 +169,7 @@ class LearningBot(ObviousBot):
 		else:
 			best_play = their_most_likely_play+1
 
-		#play best play if card available, else play a random available card
+		#play best play if card is available, else play like ObviousBot
 		if not self.just_watch and best_play in game_state.current_hands[self.player_num]:
 			play = best_play
 		else:

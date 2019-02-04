@@ -4,23 +4,23 @@ from utils.log import log
 from bots.simpleBots import BasicBot
 
 class SampleBot(BasicBot): #can extend one of the simple bots, BasicBot, ObviousBot, RandomBot
-	#these are the four methods called by GameArena.  If your bot doesn't need one, you can delete it.
+	#these are the three methods called by GameArena.  If your bot doesn't need one, you can delete it.
 
 	def __init__(self, player_num, num_players, num_cards):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
-		self.player_num = player_num
-		self.num_players = num_players
+		self.player_num = player_num #your player number
+		self.num_players = num_players #normally 2, but ideally, you should allow your bot to gracefully handle more
 		self.num_cards = num_cards
 		return
 	def end_game(self, result):
 		#Called by GameArena upon game end. Result is the number of the winning bot previous game, -1 if tie
+		#Likely want to reset any tracking variables that persist between rounds here.
 		return
 	def take_turn(self, game_state, verbose = False):
 		"""
 		Called by GameArena when it's time to take your turn.  You are passed a "game" object with this info to work with:
 
 			player_num (int) = player index for this bot.  Used to look up data for self and opponent(s) in the game_state object
-			prize_card (int) = prize card currently showing, to bid on.
 			game_state.current_won_cards[player_num][cards] = list of cards each player has won so far
 			game_state.current_scores[player_num]           = current score of each each player
 			game_state.current_hands[player][cards]			= list of cards currently in each player's hand
@@ -47,4 +47,4 @@ class SampleBot(BasicBot): #can extend one of the simple bots, BasicBot, Obvious
 		else:
 			play = BasicBot.take_turn(game_state) #can always ask the bot you extended to take the turn as a base case
 		
-		return play #gotta return a card to play
+		return play # return a card to play
