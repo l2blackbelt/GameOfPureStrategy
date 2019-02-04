@@ -22,7 +22,7 @@ class SampleBot(BasicBot): #can extend one of the simple bots, BasicBot, Obvious
 
 			game_state.current_won_cards[player_num][cards] = list of cards each player has won so far
 			game_state.current_scores[player_num]           = current score of each each player
-			game_state.current_hands[player][cards]			= list of cards currently in each player's hand
+			game_state.current_hands[player][cards]         = list of cards currently in each player's hand
 			game_state.current_prizes[cards]                = list of prizes remaining
 			game_state.prize_this_round (int)               = current prize showing for this round
 		"""
