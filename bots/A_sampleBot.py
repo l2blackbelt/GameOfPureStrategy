@@ -20,7 +20,6 @@ class SampleBot(BasicBot): #can extend one of the simple bots, BasicBot, Obvious
 		"""
 		Called by GameArena when it's time to take your turn.  You are passed a "game" object with this info to work with:
 
-			player_num (int) = player index for this bot.  Used to look up data for self and opponent(s) in the game_state object
 			game_state.current_won_cards[player_num][cards] = list of cards each player has won so far
 			game_state.current_scores[player_num]           = current score of each each player
 			game_state.current_hands[player][cards]			= list of cards currently in each player's hand
