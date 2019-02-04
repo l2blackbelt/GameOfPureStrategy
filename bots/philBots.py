@@ -7,11 +7,15 @@ class PhillipBotUpBot(BasicBot):
 
 	def take_turn(self, game, verbose = False):
 		"""
+		Called by GameArena when it's time to take your turn.  You are passed a "game" object with this info to work with:
+
 		card = (int) value 1 thru num_cards
 
 		variables available to your bot:
-			player_num (int) = player index for this bot.  Used to look up data for self and opponent(s) in the game_state object
-			prize_card (int) = prize card currently showing, to bid on.
+			self.player_num  = your player number
+			self.num_players = normally 2, but ideally, you should allow your bot to gracefully handle more
+			self.num_cards = normally 13, but ideally, you should allow your bot to gracefully handle any amount
+			
 			game_state.current_won_cards[player_num][cards] = list of cards each player has won so far
 			game_state.current_scores[player_num]           = current score of each each player
 			game_state.current_hands[player][cards]			= list of cards currently in each player's hand
