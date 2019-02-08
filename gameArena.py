@@ -88,6 +88,9 @@ class GameArena:
 
 
 		log(self, "all turns took "+str(total_turns)+" seconds")
+
+		#return the results
+		return self.win_counter
 		#log(self, "total accounted for time "+str(total_turns+total_ins))
 
 

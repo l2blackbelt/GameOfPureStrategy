@@ -6,11 +6,7 @@ from bots.simpleBots import BasicBot, ObviousBot
 
 
 class InterestingBot(BasicBot):
-	#this bot figures out how many of the highest cards it needs (decending) to win 
-	#	TODO: change to weighted random, with 2<min fewest possible cards preferred.
-	#if (card it thinks it needs): bid minimum needed to get that card, knowing that other players played.
-	#	Should have a max overbid value I can edit
-	#if (card it doesn't need): Throw away a low card.
+	#this bot figures out how many of the highest cards it needs (decending) to win
 	#majority of the points, bidding low until it finds a card it "needs"
 	#knows what other player's cards are, and will bid the lowest card it can in order to get it.
 	def __init__(self, player_num, num_players, num_cards, max_overbid = 1):
