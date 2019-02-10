@@ -106,7 +106,7 @@ def generate_scoreboard():
 				#be obnoxious about scores
 
 
-				o.write("|#"+str(i)+"|"+str(bot_name)+"|"+str(wins)+"|")
+				o.write("|**#"+str(i)+"**|"+str(bot_name)+"|"+str(wins)+"|")
 
 				sorted_opponents = sorted(data[bot_name].items(), key=operator.itemgetter(1))
 				sorted_opponents.reverse()
