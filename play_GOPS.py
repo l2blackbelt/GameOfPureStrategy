@@ -7,7 +7,7 @@ from gameArena import GameArena
 #import all the bots
 from bots.simpleBots import BasicBot, ObviousBot, RandomBot, HumanBot, ObviousPlusOneBot
 from bots.alexBots import LearningBot, WatchingBot, InterestingBot
-from bots.philBots import PhillipBotUpBot
+from bots.philBots import PhillipBotUpBot, PhillipAdaptoBot
 from bots.brianBots import GreedBot, SafeBetBot, OddBot
 
 #make python 2 and 3 behave the same for raw input
@@ -27,7 +27,7 @@ def main():
 	#print_last_game = play quiet until the last game, then display verbose output
 
 	#TODO: 1_wins = play quiet until player x wins, stop and display verbose output  #TO-DO, not implemented
-	game = GameArena(num_cards=13, num_games=1000, player_arr=[LearningBot, SafeBetBot])
+	game = GameArena(num_cards=13, num_games=1000, player_arr=[LearningBot, PhillipAdaptoBot])
 	game.play(play_method = "print_last_game")
 
 
