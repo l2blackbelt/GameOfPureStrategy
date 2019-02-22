@@ -23,7 +23,7 @@ def generate_json():
 	#import all the bots
 	from bots.simpleBots import BasicBot, ObviousBot, RandomBot, HumanBot, ObviousPlusOneBot
 	from bots.alexBots import LearningBot, WatchingBot, InterestingBot
-	from bots.philBots import PhillipBotUpBot
+	from bots.philBots import PhillipBotUpBot, PhillipAdaptoBot
 	from bots.brianBots import GreedBot, SafeBetBot, OddBot
 
 	import inspect, sys, itertools, time
