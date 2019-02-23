@@ -17,33 +17,43 @@ num_games = 100000
 num_cards = 13
 
 #any bot class names to leave off the scoreboard for various reasons.
-bots_to_skip = ["HumanBot", "WatchingBot"]
+bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2"]
 
-def generate_json():
-	#import all the bots
-	from bots.simpleBots import BasicBot, ObviousBot, RandomBot, HumanBot, ObviousPlusOneBot
-	from bots.alexBots import LearningBot, WatchingBot, InterestingBot
-	from bots.philBots import PhillipBotUpBot, PhillipAdaptoBot
-	from bots.brianBots import GreedBot, SafeBetBot, OddBot
+def generate_json(*bot_names):
 
-	import inspect, sys, itertools, time
-	
-	
-	clsmembers = inspect.getmembers(sys.modules[__name__], inspect.isclass)
-	print(clsmembers)
-	
-	
-	#########rest of imports go here ###########
+	import inspect, itertools, time, copy
 	from gameArena import GameArena
-	############################################
+
+
+	#import all the bots
+	import bots
+	bot_classes = inspect.getmembers(bots, inspect.isclass)
+
+	
 	
 	start = time.time()
+
+
+	if bot_names:
+		#scoreboard update: just pit the named bots vs all others
+		with open(data_file, 'r') as infile:
+			bot_results = json.load(infile)
+		print(bot_results)
+		combinations = []
+		for bot1_name in bot_names:
+			bot_results[bot1_name]={}
+			bot1 = [x for x in bot_classes if bot1_name in x][0]
+			for bot2 in bot_classes:
+				if bot1 != bot2:
+					combinations.append([bot1,bot2])
+	else:
+		#scoreboard refresh: pit all the bots against each other
+		bot_results = { bot[0]:{} for bot in bot_classes}
+		combinations = itertools.combinations(bot_classes,2)
 	
-	bot_names = [bot[0] for bot in clsmembers]
-	bot_results = { name:{} for name in bot_names}
+
 	
-	
-	for combination in itertools.combinations(clsmembers,2):
+	for combination in combinations:
 		bot1_name, bot1_class = combination[0]
 		bot2_name, bot2_class = combination[1]
 	
@@ -124,6 +134,6 @@ def generate_scoreboard():
 
 
 if __name__== "__main__":
-	#generate_json()
+	generate_json("PhillipAdaptoBot")
 	generate_scoreboard()
 

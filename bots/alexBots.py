@@ -184,12 +184,3 @@ class LearningBot(ObviousBot):
 class WatchingBot(LearningBot):
 	def __init__(self, player_num, num_players, num_cards):
 		LearningBot.__init__(self,player_num,num_players,num_cards,just_watch = True)
-
-
-
-class WinBot:
-	#i want to recurse through all the possibilities, and generate a lookup table for every possible game state.
-	#For every play in the game, I want to make sure I play the card that gives me the most opportunities to win
-	#perhaps ties I randomly break.
-	def generate_lookup_table(self, num_cards, num_players):
-		pass  #needs more work
