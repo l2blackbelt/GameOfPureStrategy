@@ -71,7 +71,7 @@ def generate_json(*bot_names):
 	
 	with open(data_file, 'w') as outfile:
 	    json.dump(bot_results, outfile, indent=4, sort_keys=True)
-	print(bot_results)
+	#print(bot_results)
 	
 	print("Completed scoreboard in "+str(time.time()-start)+" seconds")
 
