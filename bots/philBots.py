@@ -5,12 +5,12 @@ from bots.simpleBots import BasicBot
 
 class PhillipAdaptoBot(BasicBot):
 
-	def __init__(self, player_num, num_players, num_cards):
+	def __init__(self, player_num, num_players, num_cards, num_games):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
 		self.player_num = player_num #I can use this to cheat I think by asking the other bots what they are planning on playing
 		self.num_players = num_players #normally 2, but ideally, you should allow your bot to gracefully handle more
 		self.num_cards = num_cards
-		self.num_games = 100000
+		self.num_games = num_games
 		
 		self.current_record = 0
 		self.game_count = 0

@@ -20,7 +20,7 @@ num_cards = 13
 bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2"]
 
 def generate_json(*bot_names):
-
+	print("say hi!")
 	import inspect, itertools, time, copy
 	from gameArena import GameArena
 
