@@ -10,11 +10,12 @@ class PhillipAdaptoBot(BasicBot):
 		self.player_num = player_num #I can use this to cheat I think by asking the other bots what they are planning on playing
 		self.num_players = num_players #normally 2, but ideally, you should allow your bot to gracefully handle more
 		self.num_cards = num_cards
+		self.num_games = 100000
 		
 		self.current_record = 0
 		self.game_count = 0
 		self.state = 0 #I'll use this to cycle through strategies attempting to hard counter my opponent
-		self.implemented_strategies = 6 #can only cycle through strategies that I know
+		self.implemented_strategies = 8 #can only cycle through strategies that I know
 		self.wobble = 0 #some secret sauce
 		self.staying_power = 0
 		
@@ -40,7 +41,7 @@ class PhillipAdaptoBot(BasicBot):
 				if result != self.player_num:
 					#you lost
 					self.staying_power += 1
-					if self.staying_power > 250:
+					if self.staying_power > self.num_games/4:
 						self.wobble = 0
 						self.state = 5
 						self.staying_power = 0
@@ -96,7 +97,17 @@ class PhillipAdaptoBot(BasicBot):
 			#self.state = 3
 		elif self.state == 5:
 			play = BasicBot.take_turn(self, game_state) #can always ask the bot you extended to take the turn as a base case
-		
+		elif self.state == 6:
+			if game_state.prize_this_round < self.num_cards:
+				play = game_state.prize_this_round + 1
+			else:
+				play = 1
+		elif self.state == 7:
+			if game_state.prize_this_round < self.num_cards - 1:
+				play = game_state.prize_this_round + 2
+			else:
+				play = min(my_current_hand)
+				
 		return play # return a card to play
 
 class PhillipBotUpBot(BasicBot):
