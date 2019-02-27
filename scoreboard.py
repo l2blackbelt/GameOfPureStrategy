@@ -134,6 +134,6 @@ def generate_scoreboard():
 
 
 if __name__== "__main__":
-	generate_json("PhillipAdaptoBot")
+	generate_json("HalfPointsBot")
 	generate_scoreboard()
 

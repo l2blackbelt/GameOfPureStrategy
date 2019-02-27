@@ -3,3 +3,4 @@ from .simpleBots import *
 from .alexBots import *
 from .brianBots import *
 from .philBots import *
+from .JamesBots import *
