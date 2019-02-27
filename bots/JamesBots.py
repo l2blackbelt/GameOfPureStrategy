@@ -23,7 +23,7 @@ def get_Chosen():
 
 
 
-class FourLineKillerBot(BasicBot): #can extend one of the simple bots, BasicBot, ObviousBot, RandomBot
+class HalfPointsBot(BasicBot): #can extend one of the simple bots, BasicBot, ObviousBot, RandomBot
 	#these are the three methods called by GameArena.  If your bot doesn't need one, you can delete it.
 
 	def __init__(self, player_num, num_players, num_cards):
