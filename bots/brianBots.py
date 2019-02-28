@@ -7,8 +7,8 @@ from bots.simpleBots import BasicBot, ObviousBot
 
 class GreedBot(BasicBot):
     """ GreedBot is Greedy.  Will put the highest bid it can whenever the prize is big enough. """
-    def __init__(self, player_num, num_players, num_cards, greed_level=11):
-        BasicBot.__init__(self, player_num, num_players, num_cards)
+    def __init__(self, player_num, num_players, num_cards, num_games, greed_level=11):
+        BasicBot.__init__(self, player_num, num_players, num_cards, num_games)
         self.greed_level = greed_level
 
     def take_turn(self, game_state, verbose=False):
@@ -29,8 +29,8 @@ class OddBot(BasicBot):
 
 class SafeBetBot(BasicBot):
     """ SafeBetBot only bids high if it can win. """
-    def __init__(self, player_num, num_players, num_cards, greed_level=10):
-        BasicBot.__init__(self, player_num, num_players, num_cards)
+    def __init__(self, player_num, num_players, num_cards, num_games, greed_level=10):
+        BasicBot.__init__(self, player_num, num_players, num_cards, num_games)
         self.greed_level = greed_level
 
     def take_turn(self, game_state, verbose=False):

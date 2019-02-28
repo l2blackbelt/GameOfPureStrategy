@@ -27,7 +27,7 @@ def get_Chosen(nums):
 class HalfPointsBot(BasicBot): #can extend one of the simple bots, BasicBot, ObviousBot, RandomBot
 	#these are the three methods called by GameArena.  If your bot doesn't need one, you can delete it.
 
-	def __init__(self, player_num, num_players, num_cards):
+	def __init__(self, player_num, num_players, num_cards, num_games):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
 		nums = [1,2,3,4,5,6,7,8,9,10,11,12,13]
 		self.chosen = get_Chosen(nums)
@@ -78,7 +78,7 @@ class HalfPointsBot(BasicBot): #can extend one of the simple bots, BasicBot, Obv
 class HalfPointsAdaptBot(BasicBot): #can extend one of the simple bots, BasicBot, ObviousBot, RandomBot
 	#these are the three methods called by GameArena.  If your bot doesn't need one, you can delete it.
 
-	def __init__(self, player_num, num_players, num_cards):
+	def __init__(self, player_num, num_players, num_cards, num_games):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
 		nums = [1,2,3,4,5,6,7,8,9,10,11,12]
 		self.chosen = get_Chosen(nums)
