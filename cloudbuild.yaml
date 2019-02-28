@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone', 'git@github.com:l2blackbelt/GameOfPureStrategy.git']
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/docker', '.' ]
+- name: 'gcr.io/cloud-builders/git'
+  args: ['add', 'data.json', 'bot_scores.md']
+- name: 'gcr.io/cloud-builders/git'
+  args: ['commit', '-m', 're-generate scoreboard']
+- name: 'gcr.io/cloud-builders/git'
+  args: ['push']
+images:
+- 'gcr.io/$PROJECT_ID/docker'

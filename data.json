@@ -1,6 +1,8 @@
 {
     "BasicBot": {
         "GreedBot": 87375,
+        "HalfPointsAdaptBot": 72503,
+        "HalfPointsBot": 98097,
         "InterestingBot": 73179,
         "LearningBot": 46417,
         "ObviousBot": 3537,
@@ -14,6 +16,8 @@
     },
     "GreedBot": {
         "BasicBot": 11239,
+        "HalfPointsAdaptBot": 68336,
+        "HalfPointsBot": 71423,
         "InterestingBot": 64454,
         "LearningBot": 33010,
         "ObviousBot": 7132,
@@ -25,10 +29,40 @@
         "SafeBetBot": 11208,
         "WatchingBot": 6916
     },
+    "HalfPointsAdaptBot": {
+        "BasicBot": 25905,
+        "GreedBot": 29836,
+        "HalfPointsBot": 44829,
+        "InterestingBot": 60624,
+        "LearningBot": 72507,
+        "ObviousBot": 21938,
+        "ObviousPlusOneBot": 20860,
+        "OddBot": 89065,
+        "PhillipAdaptoBot": 67547,
+        "PhillipBotUpBot": 75163,
+        "RandomBot": 73141,
+        "SafeBetBot": 25581
+    },
+    "HalfPointsBot": {
+        "BasicBot": 1615,
+        "GreedBot": 27075,
+        "HalfPointsAdaptBot": 53428,
+        "InterestingBot": 58589,
+        "LearningBot": 84466,
+        "ObviousBot": 15232,
+        "ObviousPlusOneBot": 60160,
+        "OddBot": 76808,
+        "PhillipAdaptoBot": 59217,
+        "PhillipBotUpBot": 38504,
+        "RandomBot": 49842,
+        "SafeBetBot": 1616
+    },
     "HumanBot": {},
     "InterestingBot": {
         "BasicBot": 24994,
         "GreedBot": 33826,
+        "HalfPointsAdaptBot": 37493,
+        "HalfPointsBot": 39478,
         "LearningBot": 402,
         "ObviousBot": 60084,
         "ObviousPlusOneBot": 8844,
@@ -42,6 +76,8 @@
     "LearningBot": {
         "BasicBot": 51815,
         "GreedBot": 64699,
+        "HalfPointsAdaptBot": 25809,
+        "HalfPointsBot": 14429,
         "InterestingBot": 99563,
         "ObviousBot": 99999,
         "ObviousPlusOneBot": 99999,
@@ -55,6 +91,8 @@
     "ObviousBot": {
         "BasicBot": 96075,
         "GreedBot": 91778,
+        "HalfPointsAdaptBot": 74732,
+        "HalfPointsBot": 83708,
         "InterestingBot": 37810,
         "LearningBot": 1,
         "ObviousPlusOneBot": 0,
@@ -68,6 +106,8 @@
     "ObviousPlusOneBot": {
         "BasicBot": 87074,
         "GreedBot": 96564,
+        "HalfPointsAdaptBot": 77337,
+        "HalfPointsBot": 37812,
         "InterestingBot": 89604,
         "LearningBot": 1,
         "ObviousBot": 100000,
@@ -81,6 +121,8 @@
     "OddBot": {
         "BasicBot": 5334,
         "GreedBot": 2343,
+        "HalfPointsAdaptBot": 10090,
+        "HalfPointsBot": 21906,
         "InterestingBot": 11942,
         "LearningBot": 22421,
         "ObviousBot": 375,
@@ -94,6 +136,8 @@
     "PhillipAdaptoBot": {
         "BasicBot": 62347,
         "GreedBot": 48472,
+        "HalfPointsAdaptBot": 31154,
+        "HalfPointsBot": 39324,
         "InterestingBot": 53227,
         "LearningBot": 37643,
         "ObviousBot": 74995,
@@ -106,6 +150,8 @@
     "PhillipBotUpBot": {
         "BasicBot": 67428,
         "GreedBot": 27506,
+        "HalfPointsAdaptBot": 23186,
+        "HalfPointsBot": 58641,
         "InterestingBot": 19154,
         "LearningBot": 12312,
         "ObviousBot": 7175,
@@ -119,6 +165,8 @@
     "RandomBot": {
         "BasicBot": 49276,
         "GreedBot": 16688,
+        "HalfPointsAdaptBot": 25458,
+        "HalfPointsBot": 48634,
         "InterestingBot": 25447,
         "LearningBot": 28199,
         "ObviousBot": 3647,
@@ -132,6 +180,8 @@
     "SafeBetBot": {
         "BasicBot": 0,
         "GreedBot": 87463,
+        "HalfPointsAdaptBot": 72787,
+        "HalfPointsBot": 98120,
         "InterestingBot": 72865,
         "LearningBot": 45637,
         "ObviousBot": 3469,

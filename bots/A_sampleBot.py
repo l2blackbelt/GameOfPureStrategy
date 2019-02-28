@@ -3,9 +3,12 @@
 from utils.log import log
 from bots.simpleBots import BasicBot
 
-class SampleBot(BasicBot): #can extend one of the simple bots, BasicBot, ObviousBot, RandomBot
-	#these are the three methods called by GameArena.  If your bot doesn't need one, you can delete it.
+class SampleBot(BasicBot): 
+	#can extend one of the simple bots: BasicBot, ObviousBot, RandomBot
+	#class must include the word BOT to be treated as a bot by automatic regression.  Otherwise ignored :)
+	
 
+	#these are the three methods called by GameArena.  If your bot doesn't need one, you can delete it.
 	def __init__(self, player_num, num_players, num_cards):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
 		self.player_num = player_num #your player number
