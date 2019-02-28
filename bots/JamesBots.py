@@ -134,8 +134,8 @@ class HalfPointsAdaptBot(BasicBot): #can extend one of the simple bots, BasicBot
 					
 					if sum(game_state.current_prizes) == sum(game_state.current_hands[i]):
 						self.abort_Obvious += 1
-
-					if len(game_state.current_prizes) == (self.num_cards - 4) and sum(game_state.current_hands[i]) >= 79:
+					
+					if len(game_state.current_prizes) == (self.num_cards - int(round(float(self.num_cards)*0.3))) and sum(game_state.current_hands[i]) >= (sum(range(1,self.num_cards)) - 13):
 						self.abort_BotUp = 1
 
 				if max(game_state.current_hands[self.player_num]) > max(game_state.current_hands[i]):
