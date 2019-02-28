@@ -144,10 +144,10 @@ def _generate_readme(num_games, num_cards):
 				o.write("|\n")
 
 
-def generate_scoreboard(num_games=10000, num_cards=13, bot_names=[]):
+def generate_scoreboard(num_games=100000, num_cards=13, bot_names=[]):
 	_generate_json(num_games,num_cards,bot_names)
 	_generate_readme(num_games,num_cards)
 
 if __name__== "__main__":
-	generate_scoreboard(num_games=100,bot_names=["HalfPointsBot"])
+	generate_scoreboard(bot_names=["HalfPointsAdaptBot","PhillipAdaptoBot"])
 
