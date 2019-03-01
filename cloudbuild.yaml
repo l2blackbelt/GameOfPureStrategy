@@ -1,84 +1,12 @@
-# Decrypt the file containing the key
+#This cloudbuild.yaml runs regression on all bots to make sure they can all play correctly.
+
+
 steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  args:
-  - kms
-  - decrypt
-  - --ciphertext-file=.ssh/id_rsa.enc
-  - --plaintext-file=/root/.ssh/id_rsa
-  - --location=global
-  - --keyring=my-keyring
-  - --key=github-key
-  volumes:
-  - name: 'ssh'
-    path: /root/.ssh
 
-# Set up git with key and domain.
-- name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
-  args:
-  - '-c'
-  - |
-    chmod 600 /root/.ssh/id_rsa
-    cat <<EOF >/root/.ssh/config
-    Hostname github.com
-    IdentityFile /root/.ssh/id_rsa
-    EOF
-    mv .ssh/known_hosts /root/.ssh/known_hosts
-  volumes:
-  - name: 'ssh'
-    path: /root/.ssh
-
-# Use git clone.
-- name: 'gcr.io/cloud-builders/git'
-  args:
-  - clone
-  - git@github.com:l2blackbelt/GameOfPureStrategy.git
-  env:
-  - 'GIT_SSH_COMMAND=ssh -v'
-
-  volumes:
-  - name: 'ssh'
-    path: /root/.ssh
-
-#run docker scoreboard, exports data.json, bot_scores.md to current environment
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/docker', '.' ]
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'run', 'gcr.io/$PROJECT_ID/docker']
-  volumes:
-  - name: 'ssh'
-    path: /root/.ssh
-
-#create git commit
-
-- name: 'gcr.io/cloud-builders/git'
-  args: ['config', '--global', 'user.email', "arosmith3@gmail.com"]
-
-
-- name: 'gcr.io/cloud-builders/git'
-  args: ['-C', 'GameOfPureStrategy', 'status']
-  env:
-  - 'GIT_SSH_COMMAND=ssh -v'
-
-
-- name: 'gcr.io/cloud-builders/git'
-  args: ['-C', 'GameOfPureStrategy', 'commit', '-m', 'Auto-Build']
-  volumes:
-  - name: 'ssh'
-    path: /root/.ssh
-
-
-#git pull, using decrypted ssh key (in case there were updates while regression ran)
-- name: 'gcr.io/cloud-builders/git'
-  args: ['-C', 'GameOfPureStrategy', 'pull']
-  volumes:
-  - name: 'ssh'
-    path: /root/.ssh
-
-#git push, using decrypted ssh key
-- name: 'gcr.io/cloud-builders/git'
-  args: ['-C', 'GameOfPureStrategy', 'push']
   volumes:
   - name: 'ssh'
     path: /root/.ssh
