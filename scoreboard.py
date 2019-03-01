@@ -2,6 +2,7 @@
 
 from utils.log import log
 import json
+import multiprocessing as mp
 
 #make python 2 and 3 behave the same for raw input
 if hasattr(__builtins__, 'raw_input'):
@@ -10,6 +11,24 @@ if hasattr(__builtins__, 'raw_input'):
 
 
 data_file = "data.json"
+
+def play_bots(combination, bots_to_skip, num_cards, num_games):
+	from gameArena import GameArena
+	bot1_name, bot1_class = combination[0]
+	bot2_name, bot2_class = combination[1]
+	
+	if bot1_name in bots_to_skip or bot2_name in bots_to_skip:
+		return -1,-1
+
+	print(str(bot1_name)+" vs "+str(bot2_name))
+	game = GameArena(num_cards=num_cards, num_games=num_games, player_arr=[bot1_class, bot2_class])
+	bot1_score, bot2_score = game.play(play_method = "quiet")
+		
+	#update player results
+	#bot_results[bot1_name][bot2_name] = bot1_score
+	#bot_results[bot2_name][bot1_name] = bot2_score
+
+	return bot1_score, bot2_score
 
 
 #any bot class names to leave off the scoreboard for various reasons.
@@ -20,7 +39,6 @@ def _generate_json(num_games, num_cards, bot_names):
 	import inspect, itertools, time, copy
 	import importlib, os
 
-	from gameArena import GameArena
 
 
 	bot_classes = []
@@ -66,21 +84,22 @@ def _generate_json(num_games, num_cards, bot_names):
 		combinations = itertools.combinations(bot_classes,2)
 	
 
-	
+	#turn each interation into process:
+	print("Number of processors: ", mp.cpu_count())
+	pool = mp.Pool(mp.cpu_count())
 	for combination in combinations:
-		bot1_name, bot1_class = combination[0]
-		bot2_name, bot2_class = combination[1]
+		results = play_bots(combination, bots_to_skip, num_cards, num_games)
 	
-		if bot1_name in bots_to_skip or bot2_name in bots_to_skip:
-			continue
+		#if bot1_name in bots_to_skip or bot2_name in bots_to_skip:
+			#continue
 	
-		print(str(bot1_name)+" vs "+str(bot2_name))
-		game = GameArena(num_cards=num_cards, num_games=num_games, player_arr=[bot1_class, bot2_class])
-		bot1_score, bot2_score = game.play(play_method = "quiet")
+		#print(str(bot1_name)+" vs "+str(bot2_name))
+		#game = GameArena(num_cards=num_cards, num_games=num_games, player_arr=[bot1_class, bot2_class])
+		#bot1_score, bot2_score = game.play(play_method = "quiet")
 		
 		#update player results
-		bot_results[bot1_name][bot2_name] = bot1_score
-		bot_results[bot2_name][bot1_name] = bot2_score
+		bot_results[combination[0][0]][combination[1][0]] = results[0]
+		bot_results[combination[1][0]][combination[0][0]] = results[1]
 	
 	
 	with open(data_file, 'w') as outfile:
@@ -149,5 +168,5 @@ def generate_scoreboard(num_games=10000, num_cards=13, bot_names=[]):
 	_generate_readme(num_games,num_cards)
 
 if __name__== "__main__":
-	generate_scoreboard(num_games=100,bot_names=["HalfPointsBot"])
+	generate_scoreboard(num_games=100)
 
