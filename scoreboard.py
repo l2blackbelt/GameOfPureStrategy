@@ -12,38 +12,24 @@ if hasattr(__builtins__, 'raw_input'):
 data_file = "data.json"
 
 
+
+num_games = 100000
+num_cards = 13
+
 #any bot class names to leave off the scoreboard for various reasons.
-bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2", "SampleBot"]
+bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2"]
 
-def _generate_json(num_games, num_cards, bot_names):
-
+def generate_json(*bot_names):
+	print("say hi!")
 	import inspect, itertools, time, copy
-	import importlib, os
-
 	from gameArena import GameArena
 
 
-	bot_classes = []
-	#import all the bot python files
-	for bot_file in os.listdir("bots"):
-		if "bot" in bot_file.lower() and bot_file.endswith(".py"):
-			bot_file = bot_file[:-3]
-			print("importing "+str(bot_file))
-			bot_module = importlib.import_module("bots."+bot_file)
-			bot_tuples = inspect.getmembers(bot_module, inspect.isclass)
-			for bot_name,bot_class in bot_tuples:
-				if bot_file not in str(bot_class): 
-					#ignore inhereted bots
-					continue
-				if bot_name in bots_to_skip:
-					#ignore bots to skip
-					print("  skip "+bot_name)
-					continue
-				print("  found "+bot_name)
-				#get list of bots from bot modules
-				bot_classes.append([bot_name,bot_class])
-	#print(bot_classes)
+	#import all the bots
+	import bots
+	bot_classes = inspect.getmembers(bots, inspect.isclass)
 
+	
 	
 	start = time.time()
 
@@ -90,7 +76,9 @@ def _generate_json(num_games, num_cards, bot_names):
 	print("Completed scoreboard in "+str(time.time()-start)+" seconds")
 
 
-def _generate_readme(num_games, num_cards):
+
+
+def generate_scoreboard():
 	import operator
 	with open(data_file) as f:
 		data = json.load(f)
@@ -144,10 +132,8 @@ def _generate_readme(num_games, num_cards):
 				o.write("|\n")
 
 
-def generate_scoreboard(num_games=100000, num_cards=13, bot_names=[]):
-	_generate_json(num_games,num_cards,bot_names)
-	_generate_readme(num_games,num_cards)
 
 if __name__== "__main__":
-	generate_scoreboard(bot_names=["HalfPointsAdaptBot","PhillipAdaptoBot"])
+	generate_json("PhillipAdaptoBot")
+	generate_scoreboard()
 

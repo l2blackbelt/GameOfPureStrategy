@@ -9,12 +9,11 @@ class SampleBot(BasicBot):
 	
 
 	#these are the three methods called by GameArena.  If your bot doesn't need one, you can delete it.
-	def __init__(self, player_num, num_players, num_cards, num_games):
+	def __init__(self, player_num, num_players, num_cards):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
 		self.player_num = player_num #your player number
 		self.num_players = num_players #normally 2, but ideally, you should allow your bot to gracefully handle more
-		self.num_cards = num_cards #number of starting cards
-		self.num_games = num_games #number of games that will be played.  Exposed so a bot can potentially change its strategy over time
+		self.num_cards = num_cards
 		return
 	def end_game(self, result):
 		#Called by GameArena upon game end. Result is the number of the winning bot previous game, -1 if tie
@@ -55,6 +54,6 @@ class SampleBot(BasicBot):
 		if (my_score > 0) or (game_state.prize_this_round == 12):
 			play = max(my_current_hand)
 		else:
-			play = BasicBot.take_turn(self, game_state) #can always ask the bot you extended to take the turn as a base case
+			play = BasicBot.take_turn(game_state) #can always ask the bot you extended to take the turn as a base case
 		
 		return play # return a card to play
