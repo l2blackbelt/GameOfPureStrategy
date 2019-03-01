@@ -51,10 +51,22 @@ steps:
     path: /root/.ssh
 
 #create git commit
+
 - name: 'gcr.io/cloud-builders/git'
-  args: ['-C', 'GameOfPureStrategy', 'add', 'data.json', 'bot_scores.md']
+  args: ['config', '--global', 'user.email', "arosmith3@gmail.com"]
+
+
 - name: 'gcr.io/cloud-builders/git'
-  args: ['-C', 'GameOfPureStrategy', 'commit', '-m', 're-generate scoreboard']
+  args: ['-C', 'GameOfPureStrategy', 'status']
+  env:
+  - 'GIT_SSH_COMMAND=ssh -v'
+
+
+- name: 'gcr.io/cloud-builders/git'
+  args: ['-C', 'GameOfPureStrategy', 'commit', '-m', 'Auto-Build']
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
 
 
 #git pull, using decrypted ssh key (in case there were updates while regression ran)
