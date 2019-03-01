@@ -1,5 +1,7 @@
 # GameOfPureStrategy
 
+dev branch
+
 Battlin' strategies to win the most games of the [Game of Pure Strategy (GOPS)](https://en.wikipedia.org/wiki/Goofspiel)
 
 
