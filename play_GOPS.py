@@ -27,7 +27,7 @@ def main():
 	#print_last_game = play quiet until the last game, then display verbose output
 
 	#TODO: 1_wins = play quiet until player x wins, stop and display verbose output  #TO-DO, not implemented
-	game = GameArena(num_cards=13, num_games=1000, player_arr=[LearningBot, PhillipAdaptoBot])
+	game = GameArena(num_cards=13, num_games=10000, player_arr=[LearningBot, PhillipAdaptoBot])
 	game.play(play_method = "print_last_game")
 
 

@@ -32,7 +32,7 @@ class GameArena:
 
 		#init players
 		for player_num,player in enumerate(self.player_arr):
-			self.current_players.append(player(player_num, self.num_players, self.num_cards))
+			self.current_players.append(player(player_num, self.num_players, self.num_cards, self.num_games))
 
 		#begin the match
 		for game_num in range(0,self.num_games):
