@@ -1,14 +1,15 @@
 #all files in base directory owned by @l2blackbelt
 /* @l2blackbelt
 
-#also own misc files, dirs
+#also own misc files, dirs and default bots
 /scoreboard @l2blackbelt
 /utils @l2blackbelt
 /.ssh @l2blackbelt
 /bots/__init__.py @l2blackbelt
-
-#and my bots
 /bots/simpleBots.py @l2blackbelt
-/bots/alexBots.py @l2blackbelt
+
+
 
 #bot owners can add themselves as owners so no one can mess with their bots without their approval
+/bots/alexBots.py @l2blackbelt
+/bots/philBots.py @phyxl

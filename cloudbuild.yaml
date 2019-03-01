@@ -7,9 +7,6 @@ steps:
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/docker', '.' ]
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'run', 'gcr.io/$PROJECT_ID/docker']
-  volumes:
-  - name: 'ssh'
-    path: /root/.ssh
 
 
 images:
