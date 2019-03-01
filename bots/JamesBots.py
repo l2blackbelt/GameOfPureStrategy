@@ -29,7 +29,7 @@ class HalfPointsBot(BasicBot): #can extend one of the simple bots, BasicBot, Obv
 
 	def __init__(self, player_num, num_players, num_cards, num_games):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
-		nums = range(1,num_cards)
+		nums = list(range(1,num_cards))
 		self.chosen = get_Chosen(nums)
 		self.player_num = player_num #your player number
 		self.num_players = num_players #normally 2, but ideally, you should allow your bot to gracefully handle more
@@ -38,7 +38,7 @@ class HalfPointsBot(BasicBot): #can extend one of the simple bots, BasicBot, Obv
 	def end_game(self, result):
 		#Called by GameArena upon game end. Result is the number of the winning bot previous game, -1 if tie
 		#Likely want to reset any tracking variables that persist between rounds here.
-		nums = range(1,self.num_cards)
+		nums = list(range(1,self.num_cards))
 		self.chosen = get_Chosen(nums)
 		return
 	def take_turn(self, game_state, verbose = False):
@@ -80,7 +80,7 @@ class HalfPointsAdaptBot(BasicBot): #can extend one of the simple bots, BasicBot
 
 	def __init__(self, player_num, num_players, num_cards, num_games):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
-		nums = range(1,num_cards-1)
+		nums = list(range(1,num_cards-1))
 		self.abort_BotUp = 0
 		self.abort_Obvious = 0
 		self.chosen = get_Chosen(nums)
@@ -92,7 +92,7 @@ class HalfPointsAdaptBot(BasicBot): #can extend one of the simple bots, BasicBot
 	def end_game(self, result):
 		#Called by GameArena upon game end. Result is the number of the winning bot previous game, -1 if tie
 		#Likely want to reset any tracking variables that persist between rounds here.
-		nums = range(1,self.num_cards-1)
+		nums = list(range(1,self.num_cards-1))
 		self.chosen = get_Chosen(nums)
 		self.abort_Obvious = 0
 		self.abort_BotUp = 0
