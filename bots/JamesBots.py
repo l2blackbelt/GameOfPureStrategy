@@ -29,7 +29,7 @@ class HalfPointsBot(BasicBot): #can extend one of the simple bots, BasicBot, Obv
 
 	def __init__(self, player_num, num_players, num_cards, num_games):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
-		nums = [1,2,3,4,5,6,7,8,9,10,11,12,13]
+		nums = range(1,num_cards)
 		self.chosen = get_Chosen(nums)
 		self.player_num = player_num #your player number
 		self.num_players = num_players #normally 2, but ideally, you should allow your bot to gracefully handle more
@@ -38,7 +38,7 @@ class HalfPointsBot(BasicBot): #can extend one of the simple bots, BasicBot, Obv
 	def end_game(self, result):
 		#Called by GameArena upon game end. Result is the number of the winning bot previous game, -1 if tie
 		#Likely want to reset any tracking variables that persist between rounds here.
-		nums = [1,2,3,4,5,6,7,8,9,10,11,12,13]
+		nums = range(1,self.num_cards)
 		self.chosen = get_Chosen(nums)
 		return
 	def take_turn(self, game_state, verbose = False):
@@ -80,7 +80,9 @@ class HalfPointsAdaptBot(BasicBot): #can extend one of the simple bots, BasicBot
 
 	def __init__(self, player_num, num_players, num_cards, num_games):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
-		nums = [1,2,3,4,5,6,7,8,9,10,11,12]
+		nums = range(1,num_cards-1)
+		self.abort_BotUp = 0
+		self.abort_Obvious = 0
 		self.chosen = get_Chosen(nums)
 		self.player_num = player_num #your player number
 		self.num_players = num_players #normally 2, but ideally, you should allow your bot to gracefully handle more
@@ -90,8 +92,10 @@ class HalfPointsAdaptBot(BasicBot): #can extend one of the simple bots, BasicBot
 	def end_game(self, result):
 		#Called by GameArena upon game end. Result is the number of the winning bot previous game, -1 if tie
 		#Likely want to reset any tracking variables that persist between rounds here.
-		nums = [1,2,3,4,5,6,7,8,9,10,11,12]
+		nums = range(1,self.num_cards-1)
 		self.chosen = get_Chosen(nums)
+		self.abort_Obvious = 0
+		self.abort_BotUp = 0
 		self.last_wins = 0
 		return
 	def take_turn(self, game_state, verbose = False):
@@ -125,10 +129,32 @@ class HalfPointsAdaptBot(BasicBot): #can extend one of the simple bots, BasicBot
 		safe_to_use = 1
 		for i in range(0,self.num_players-1):
 			if i != self.player_num:
+
+				if self.num_players == 2:
+					
+					if sum(game_state.current_prizes) == sum(game_state.current_hands[i]):
+						self.abort_Obvious += 1
+					
+					if len(game_state.current_prizes) == (self.num_cards - int(round(float(self.num_cards)*0.3))) and sum(game_state.current_hands[i]) >= (sum(range(1,self.num_cards)) - 13):
+						self.abort_BotUp = 1
+
 				if max(game_state.current_hands[self.player_num]) > max(game_state.current_hands[i]):
 					safe_to_use = 1
 				else:
 					safe_to_use = 0
+
+		#if len(game_state.current_prizes) >= 5 and (game_state.prize_this_round + game_state.current_scores[self.player_num]) > max(game_state.current_scores):
+		#	return max(game_state.current_hands[self.player_num])
+
+		if self.abort_Obvious > 4:
+			if (game_state.prize_this_round + 1) in game_state.current_hands[self.player_num]:
+				return (game_state.prize_this_round + 1)
+			else:
+				return min(game_state.current_hands[self.player_num])
+
+		if self.abort_BotUp == 1:
+			idx = len(game_state.current_hands[self.player_num])/2
+			return game_state.current_hands[self.player_num][idx]
 
 		if safe_to_use == 1 and max(game_state.current_prizes) == game_state.prize_this_round:
 			return max(game_state.current_hands[self.player_num])
