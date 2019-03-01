@@ -6,7 +6,7 @@ def bot_regression():
 	num_games = 5 #test bots can handle more than one game
 	num_cards = 13
 	bot_names = []
-	bots_to_skip = ["HumanBot","HalfPointsBot", "HalfPointsAdaptBot"] #these bots cannot be regressed
+	bots_to_skip = ["HumanBot"] #these bots cannot be regressed
 
 	bot_classes = scoreboard._get_bot_classes(bots_to_skip)
 	num_bots = len(bot_classes)
