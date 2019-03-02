@@ -12,13 +12,15 @@ if hasattr(__builtins__, 'raw_input'):
 
 data_file = "data.json"
 
-def play_bots(combination, bots_to_skip, num_cards, num_games):
+#any bot class names to leave off the scoreboard for various reasons.
+bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2", "SampleBot"]
+
+def play_bots(combination_data):
 	from gameArena import GameArena
-	bot1_name, bot1_class = combination[0]
-	bot2_name, bot2_class = combination[1]
-	
-	if bot1_name in bots_to_skip or bot2_name in bots_to_skip:
-		return -1,-1
+	bot1_name, bot1_class = combination_data[0]
+	bot2_name, bot2_class = combination_data[1]
+	num_cards = combination_data[2]
+	num_games = combination_data[3]
 
 	print(str(bot1_name)+" vs "+str(bot2_name))
 	game = GameArena(num_cards=num_cards, num_games=num_games, player_arr=[bot1_class, bot2_class])
@@ -28,11 +30,8 @@ def play_bots(combination, bots_to_skip, num_cards, num_games):
 	#bot_results[bot1_name][bot2_name] = bot1_score
 	#bot_results[bot2_name][bot1_name] = bot2_score
 
-	return bot1_score, bot2_score
+	return bot1_name, bot1_score, bot2_name, bot2_score
 
-
-#any bot class names to leave off the scoreboard for various reasons.
-bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2", "SampleBot"]
 
 def _generate_json(num_games, num_cards, bot_names):
 
@@ -83,13 +82,20 @@ def _generate_json(num_games, num_cards, bot_names):
 		bot_results = { bot[0]:{} for bot in bot_classes}
 		combinations = itertools.combinations(bot_classes,2)
 	
+	combination_data = []
+	for combination in combinations:
+		combination_data.append(combination + (num_cards, num_games))
+	#for combination in combination_data:
+		#print(combination)
+	#print(bot_results)
 
 	#turn each interation into process:
 	print("Number of processors: ", mp.cpu_count())
 	pool = mp.Pool(mp.cpu_count())
-	for combination in combinations:
-		results = play_bots(combination, bots_to_skip, num_cards, num_games)
-	
+	#for combination in combinations:
+		#results = play_bots(combination, num_cards, num_games)
+	results = pool.map(play_bots, combination_data) 
+	#print(results)
 		#if bot1_name in bots_to_skip or bot2_name in bots_to_skip:
 			#continue
 	
@@ -98,8 +104,9 @@ def _generate_json(num_games, num_cards, bot_names):
 		#bot1_score, bot2_score = game.play(play_method = "quiet")
 		
 		#update player results
-		bot_results[combination[0][0]][combination[1][0]] = results[0]
-		bot_results[combination[1][0]][combination[0][0]] = results[1]
+	for result in results:
+		bot_results[result[0]][result[2]] = result[1]
+		bot_results[result[2]][result[0]] = result[3]
 	
 	
 	with open(data_file, 'w') as outfile:
@@ -168,5 +175,5 @@ def generate_scoreboard(num_games=10000, num_cards=13, bot_names=[]):
 	_generate_readme(num_games,num_cards)
 
 if __name__== "__main__":
-	generate_scoreboard(num_games=100)
+	generate_scoreboard(num_games=10000)
 
