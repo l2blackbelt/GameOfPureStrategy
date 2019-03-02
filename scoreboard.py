@@ -25,10 +25,6 @@ def play_bots(combination_data):
 	print(str(bot1_name)+" vs "+str(bot2_name))
 	game = GameArena(num_cards=num_cards, num_games=num_games, player_arr=[bot1_class, bot2_class])
 	bot1_score, bot2_score = game.play(play_method = "quiet")
-		
-	#update player results
-	#bot_results[bot1_name][bot2_name] = bot1_score
-	#bot_results[bot2_name][bot1_name] = bot2_score
 
 	return bot1_name, bot1_score, bot2_name, bot2_score
 
@@ -85,23 +81,11 @@ def _generate_json(num_games, num_cards, bot_names):
 	combination_data = []
 	for combination in combinations:
 		combination_data.append(combination + (num_cards, num_games))
-	#for combination in combination_data:
-		#print(combination)
-	#print(bot_results)
 
-	#turn each interation into process:
+	#turn each game into a process:
 	print("Number of processors: ", mp.cpu_count())
 	pool = mp.Pool(mp.cpu_count())
-	#for combination in combinations:
-		#results = play_bots(combination, num_cards, num_games)
 	results = pool.map(play_bots, combination_data) 
-	#print(results)
-		#if bot1_name in bots_to_skip or bot2_name in bots_to_skip:
-			#continue
-	
-		#print(str(bot1_name)+" vs "+str(bot2_name))
-		#game = GameArena(num_cards=num_cards, num_games=num_games, player_arr=[bot1_class, bot2_class])
-		#bot1_score, bot2_score = game.play(play_method = "quiet")
 		
 		#update player results
 	for result in results:
