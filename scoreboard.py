@@ -31,45 +31,71 @@ def play_bots(combination_data):
 
 def _generate_json(num_games, num_cards, bot_names):
 
-	import inspect, itertools, time, copy
-	import importlib, os
-
-
+	import inspect, importlib, os
 
 	bot_classes = []
 	#import all the bot python files
 	for bot_file in os.listdir("bots"):
-		if "bot" in bot_file.lower() and bot_file.endswith(".py"):
-			bot_file = bot_file[:-3]
-			print("importing "+str(bot_file))
-			bot_module = importlib.import_module("bots."+bot_file)
-			bot_tuples = inspect.getmembers(bot_module, inspect.isclass)
-			for bot_name,bot_class in bot_tuples:
-				if bot_file not in str(bot_class): 
-					#ignore inhereted bots
-					continue
-				if bot_name in bots_to_skip:
-					#ignore bots to skip
-					print("  skip "+bot_name)
-					continue
-				print("  found "+bot_name)
-				#get list of bots from bot modules
-				bot_classes.append([bot_name,bot_class])
-	#print(bot_classes)
 
+		#skip files that don't seem like bots
+		if "bot" not in bot_file.lower() or not bot_file.endswith(".py"):
+			continue
+
+		bot_file = bot_file[:-3] #remove *.py
+		print("importing "+str(bot_file))
+		bot_module = importlib.import_module("bots."+bot_file)
+		bot_tuples = inspect.getmembers(bot_module, inspect.isclass)
+		for bot_name,bot_class in bot_tuples:
+			if bot_file not in str(bot_class): 
+				#ignore inhereted bots
+				continue
+			if bot_name in bots_to_skip:
+				#ignore bots to skip
+				print("  skip "+bot_name)
+				continue
+			print("  found "+bot_name)
+			#get list of bots from bot modules
+			bot_classes.append([bot_name,bot_class])
+	return bot_classes
+
+
+#return results from playing games
+def _play_game(num_games, num_cards, player_arr):
+	from gameArena import GameArena
+	game = GameArena(num_cards=num_cards, num_games=num_games, player_arr=player_arr)
+	return game.play(play_method = "quiet")
+
+
+
+
+#generate scoreboard json by running games
+def _generate_json(num_games, num_cards, bot_names):
+
+	import itertools, time
 	
 	start = time.time()
 
+	bot_classes = _get_bot_classes()
 
+	#generate bot combinations; either all bots vs all others, or just run specified bots vs all others
 	if bot_names:
 		#scoreboard update: just pit the named bots vs all others
 		with open(data_file, 'r') as infile:
 			bot_results = json.load(infile)
-		print(bot_results)
+		#print(bot_results)
 		combinations = []
 		for bot1_name in bot_names:
 			bot_results[bot1_name]={}
-			bot1 = [x for x in bot_classes if bot1_name in x][0]
+
+			#find bot by name
+			bot1 = None
+			for bot in bot_classes:
+				bot_name = bot[0]
+				if bot1_name == bot_name:
+					bot1 = bot
+					break
+			if not bot1:
+				raise Exception("Cannot find bot "+bot1_name)
 			for bot2 in bot_classes:
 				if bot1 != bot2:
 					combinations.append([bot1,bot2])
@@ -78,6 +104,7 @@ def _generate_json(num_games, num_cards, bot_names):
 		bot_results = { bot[0]:{} for bot in bot_classes}
 		combinations = itertools.combinations(bot_classes,2)
 	
+
 	combination_data = []
 	for combination in combinations:
 		combination_data.append(combination + (num_cards, num_games))
@@ -99,7 +126,7 @@ def _generate_json(num_games, num_cards, bot_names):
 	
 	print("Completed scoreboard in "+str(time.time()-start)+" seconds")
 
-
+#generate readme scoreboard from the raw json data
 def _generate_readme(num_games, num_cards):
 	import operator
 	with open(data_file) as f:
@@ -154,10 +181,10 @@ def _generate_readme(num_games, num_cards):
 				o.write("|\n")
 
 
-def generate_scoreboard(num_games=10000, num_cards=13, bot_names=[]):
+def generate_scoreboard(num_games=10, num_cards=13, bot_names=[]):
 	_generate_json(num_games,num_cards,bot_names)
 	_generate_readme(num_games,num_cards)
 
 if __name__== "__main__":
-	generate_scoreboard(num_games=10000)
+	generate_scoreboard(num_games=100000)
 

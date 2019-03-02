@@ -9,9 +9,9 @@ class InterestingBot(BasicBot):
 	#this bot figures out how many of the highest cards it needs (decending) to win
 	#majority of the points, bidding low until it finds a card it "needs"
 	#knows what other player's cards are, and will bid the lowest card it can in order to get it.
-	def __init__(self, player_num, num_players, num_cards, max_overbid = 1):
+	def __init__(self, player_num, num_players, num_cards, num_games, max_overbid = 1):
 		#give the bot access to game state variables
-		BasicBot.__init__(self, player_num, num_players,num_cards)
+		BasicBot.__init__(self, player_num, num_players,num_cards, num_games)
 
 		num_points = sum([i for i in range(0,num_cards)])
 
@@ -109,15 +109,15 @@ class InterestingBot(BasicBot):
 
 #class inheretence.  Instantiates an interestingbot but overwites max_overbid in init.
 class InterestingBot_2(InterestingBot):
-	def __init__(self, player_num, num_players, num_cards):
-		InterestingBot.__init__(self,player_num,num_players,num_cards,max_overbid = 2)
+	def __init__(self, player_num, num_players, num_cards, num_games):
+		InterestingBot.__init__(self, player_num, num_players, num_cards, num_games, max_overbid = 2)
 
 
 
 class LearningBot(ObviousBot):
-	def __init__(self, player_num, num_players, num_cards, just_watch = False):
+	def __init__(self, player_num, num_players, num_cards, num_games, just_watch = False):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
-		ObviousBot.__init__(self, player_num, num_players,num_cards)
+		ObviousBot.__init__(self, player_num, num_players, num_cards, num_games)
 
 		#this array of arrays is indexed 1-num_cards.  At each index is another array 1-num_cards that is the probibility of your opponent picking that card
 		#frequency_array[player][card][frequency-of-each-card-played]
@@ -182,5 +182,5 @@ class LearningBot(ObviousBot):
 
 
 class WatchingBot(LearningBot):
-	def __init__(self, player_num, num_players, num_cards):
-		LearningBot.__init__(self,player_num,num_players,num_cards,just_watch = True)
+	def __init__(self, player_num, num_players, num_cards, num_games):
+		LearningBot.__init__(self, player_num, num_players, num_cards, num_games, just_watch = True)
