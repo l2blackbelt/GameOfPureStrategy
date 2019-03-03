@@ -1,5 +1,24 @@
-#!/bin/sh
-set -e -x
+#!/usr/bin/env bash
+set -ex
+
+
+
+
+
+
+
+#if SCOREBOARD not set, run simple regression and exit
+if [ -z "${SCOREBOARD}" ]; then
+	python3 regression.py
+	exit 0
+fi
+
+
+#else, update scoreboard
+
+
+
+
 
 # Verify our environment variables are set
 [ -z "${GIT_REPO}" ] && { echo "Need to set GIT_REPO"; exit 1; }
@@ -12,6 +31,11 @@ set -e -x
 
 # Change to our working directory
 cd ${WORKING_DIR}
+
+
+
+
+
 
 
 # Set up our SSH Key
@@ -32,21 +56,21 @@ git config --global user.email "${COMMIT_EMAIL}"
 
 #change repo from https to ssh
 git remote set-url origin "${GIT_REPO}"
+git checkout ${GIT_BRANCH}
+git reset --hard origin/master
 
+python3 scoreboard.py
 
 git status
-
-git stash
-git checkout ${GIT_BRANCH}
-git pull
+#git pull
 
 #overwrite instead of merge
-git checkout stash -- .
+#git checkout stash -- .
 
 git add "data.json" "bot_scores.md"
 
 
 # Commit and push the detected changes if they are found.
 git commit -m "Auto Build Scoreboard."
-git push ${GIT_ORIGIN} ${GIT_BRANCH}
+#git push ${GIT_ORIGIN} ${GIT_BRANCH}
 
