@@ -1,3 +1,10 @@
+#this same Dockerfile will be used both when we run regression, and when we generate a new scoreboard
+#When we generate scoreboard, ENV SCOREBOARD=1
+
+
+
+
+
 # Use an official Python runtime as a parent image
 FROM python:3
 
@@ -22,5 +29,6 @@ ENV FILES_TO_COMMIT="."
 
 
 
-# Run app.py when the container launches
-CMD python3 scoreboard.py; /bin/sh entrypoint.sh
+# Run entrypoint
+COPY entrypoint.sh /app
+CMD /bin/sh entrypoint.sh
