@@ -97,7 +97,7 @@ def _generate_json(num_games, num_cards, bot_names):
 				raise Exception("Cannot find bot "+bot1_name)
 			for bot2 in bot_classes:
 				if bot1 != bot2:
-					combinations.append([bot1,bot2])
+					combinations.append((bot1,bot2))
 	else:
 		#scoreboard refresh: pit all the bots against each other
 		bot_results = { bot[0]:{} for bot in bot_classes}
@@ -185,5 +185,5 @@ def generate_scoreboard(num_games=10, num_cards=13, bot_names=[]):
 	_generate_readme(num_games,num_cards)
 
 if __name__== "__main__":
-	generate_scoreboard(num_games=10000)
+	generate_scoreboard(num_games=100000, bot_names=["PhillipAdaptoBot"])
 

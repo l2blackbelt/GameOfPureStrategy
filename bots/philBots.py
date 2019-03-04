@@ -48,7 +48,7 @@ class PhillipAdaptoBot(BasicBot):
 			#It think that means I lost, and am not hard countering
 			self.state += 1
 			if self.state >= self.implemented_strategies:
-				self.state = 7 #You're probably sunk at this point
+				self.state = 0 #You're probably sunk at this point
 			#if self.current_record > self.staying_power:
 				#self.wobble = 1
 			self.current_record = 0
