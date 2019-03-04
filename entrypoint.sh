@@ -55,7 +55,7 @@ git checkout -- .
 python3 scoreboard.py
 
 git status
-git pull master
+git pull origin master
 
 #overwrite instead of merge
 #git checkout stash -- .
