@@ -60,7 +60,10 @@ git pull origin master
 #overwrite instead of merge
 #git checkout stash -- .
 
-git add "data.json" "bot_scores.md"
+mv data.json scoreboard
+mv bot_scores.md scoreboard
+
+git add scoreboard/*
 
 
 # Commit and push the detected changes if they are found.
