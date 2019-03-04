@@ -50,13 +50,12 @@ git config --global user.email "${COMMIT_EMAIL}"
 #change repo from https to ssh
 git remote set-url origin "${GIT_REPO}"
 git checkout ${GIT_BRANCH}
-git pull
 git checkout -- .
 
 python3 scoreboard.py
 
 git status
-#git pull
+git pull master
 
 #overwrite instead of merge
 #git checkout stash -- .
