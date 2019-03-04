@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -ex
 
-
+#if the above command fails it means line endings are not unix
 
 
 
 
 
 #if SCOREBOARD not set, run simple regression and exit
-if [ -z "${SCOREBOARD}" ]; then
-	python3 regression.py
-	exit 0
-fi
+#if [ -z "${SCOREBOARD}" ]; then
+#	python3 regression.py
+#	exit 0
+#fi
 
 
 #else, update scoreboard
@@ -31,7 +31,7 @@ fi
 
 # Change to our working directory
 cd ${WORKING_DIR}
-
+ls -la
 
 
 

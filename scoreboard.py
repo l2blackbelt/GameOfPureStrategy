@@ -13,7 +13,7 @@ data_file = "data.json"
 
 
 #any bot class names to leave off the scoreboard for various reasons.
-bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2", "SampleBot"]
+bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2", "SampleBot", "HalfPointsBot", "HalfPointsAdaptBot"]
 
 
 
@@ -64,7 +64,7 @@ def _generate_json(num_games, num_cards, bot_names):
 	
 	start = time.time()
 
-	bot_classes = _get_bot_classes()
+	bot_classes = _get_bot_classes(bots_to_skip=bots_to_skip)
 
 	#generate bot combinations; either all bots vs all others, or just run specified bots vs all others
 	if bot_names:
