@@ -153,7 +153,7 @@ class HalfPointsAdaptBot(BasicBot): #can extend one of the simple bots, BasicBot
 				return min(game_state.current_hands[self.player_num])
 
 		if self.abort_BotUp == 1:
-			idx = len(game_state.current_hands[self.player_num])/2
+			idx = int(len(game_state.current_hands[self.player_num])/2)
 			return game_state.current_hands[self.player_num][idx]
 
 		if safe_to_use == 1 and max(game_state.current_prizes) == game_state.prize_this_round:

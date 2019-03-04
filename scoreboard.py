@@ -2,6 +2,7 @@
 
 from utils.log import log
 import json
+import multiprocessing as mp
 
 #make python 2 and 3 behave the same for raw input
 if hasattr(__builtins__, 'raw_input'):
@@ -11,13 +12,22 @@ if hasattr(__builtins__, 'raw_input'):
 
 data_file = "data.json"
 
-
 #any bot class names to leave off the scoreboard for various reasons.
 bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2", "SampleBot", "HalfPointsBot", "HalfPointsAdaptBot"]
 
+def play_bots(combination_data):
+	from gameArena import GameArena
+	bot1_name, bot1_class = combination_data[0]
+	bot2_name, bot2_class = combination_data[1]
+	num_cards = combination_data[2]
+	num_games = combination_data[3]
 
+	print(str(bot1_name)+" vs "+str(bot2_name))
+	game = GameArena(num_cards=num_cards, num_games=num_games, player_arr=[bot1_class, bot2_class])
+	bot1_score, bot2_score = game.play(play_method = "quiet")
 
-#return a list of tuples ("name", <class>) that represents the name and class of all known bots
+	return bot1_name, bot1_score, bot2_name, bot2_score
+
 def _get_bot_classes(bots_to_skip = []):
 
 	import inspect, importlib, os
@@ -64,7 +74,7 @@ def _generate_json(num_games, num_cards, bot_names):
 	
 	start = time.time()
 
-	bot_classes = _get_bot_classes(bots_to_skip=bots_to_skip)
+	bot_classes = _get_bot_classes(bots_to_skip = bots_to_skip)
 
 	#generate bot combinations; either all bots vs all others, or just run specified bots vs all others
 	if bot_names:
@@ -87,25 +97,27 @@ def _generate_json(num_games, num_cards, bot_names):
 				raise Exception("Cannot find bot "+bot1_name)
 			for bot2 in bot_classes:
 				if bot1 != bot2:
-					combinations.append([bot1,bot2])
+					combinations.append((bot1,bot2))
 	else:
 		#scoreboard refresh: pit all the bots against each other
 		bot_results = { bot[0]:{} for bot in bot_classes}
 		combinations = itertools.combinations(bot_classes,2)
 	
 
-	#run games
+	combination_data = []
 	for combination in combinations:
-		bot1_name, bot1_class = combination[0]
-		bot2_name, bot2_class = combination[1]
-	
-		if bot1_name in bots_to_skip or bot2_name in bots_to_skip:
-			continue
-	
-		print(str(bot1_name)+" vs "+str(bot2_name))
-		bot1_score, bot2_score = _play_game(num_cards=num_cards, num_games=num_games, player_arr=[bot1_class, bot2_class])
+		combination_data.append(combination + (num_cards, num_games))
+
+	#turn each game into a process:
+	print("Number of processors: ", mp.cpu_count())
+	pool = mp.Pool(mp.cpu_count())
+	results = pool.map(play_bots, combination_data) 
 		
-		#update player results
+	#update player results
+	for result in results:
+
+		bot1_name, bot1_score, bot2_name, bot2_score = result
+
 		bot_results[bot1_name][bot2_name] = bot1_score
 		bot_results[bot2_name][bot1_name] = bot2_score
 	
@@ -171,10 +183,10 @@ def _generate_readme(num_games, num_cards):
 				o.write("|\n")
 
 
-def generate_scoreboard(num_games=10, num_cards=13, bot_names=[]):
+def generate_scoreboard(num_games=100000, num_cards=13, bot_names=[]):
 	_generate_json(num_games,num_cards,bot_names)
 	_generate_readme(num_games,num_cards)
 
 if __name__== "__main__":
-	generate_scoreboard(bot_names=["PhillipAdaptoBot"])
+	generate_scoreboard(num_games=1000, bot_names=[])
 
