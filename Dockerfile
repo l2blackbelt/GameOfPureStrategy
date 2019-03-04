@@ -16,9 +16,6 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-ADD /.ssh/id_rsa .
-ADD /.ssh/known_hosts .
-
 
 #set flag whether to do scoreboard or normal regression from environment variable
 ARG SCOREBOARD

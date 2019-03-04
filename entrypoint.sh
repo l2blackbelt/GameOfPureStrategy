@@ -34,16 +34,14 @@ ls -la
 
 
 # Set up our SSH Key
-if [ ! -d ~/.ssh ]; then
-	echo "SSH Key was not found. Configuring SSH Key."
-	mkdir ~/.ssh
-	cp known_hosts ~/.ssh
-	cp id_rsa ~/.ssh
-	chmod 700 ~/.ssh
-	chmod 600 ~/.ssh/id_rsa
+mkdir ~/.ssh
+cp .ssh/known_hosts ~/.ssh
+cp .ssh/id_rsa ~/.ssh
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_rsa
 
-	#echo -e "Host *\n    StrictHostKeyChecking=no\n    UserKnownHostsFile=/dev/null\n" > ~/.ssh/config
-fi
+#echo -e "Host *\n    StrictHostKeyChecking=no\n    UserKnownHostsFile=/dev/null\n" > ~/.ssh/config
+
 
 # Configure our user and email to commit as.
 git config --global user.name "${COMMIT_USER}"
@@ -51,8 +49,8 @@ git config --global user.email "${COMMIT_EMAIL}"
 
 #change repo from https to ssh
 git remote set-url origin "${GIT_REPO}"
-git pull
 git checkout ${GIT_BRANCH}
+git pull
 git checkout -- .
 
 python3 scoreboard.py
