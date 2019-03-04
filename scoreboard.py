@@ -188,5 +188,5 @@ def generate_scoreboard(num_games=100000, num_cards=13, bot_names=[]):
 	_generate_readme(num_games,num_cards)
 
 if __name__== "__main__":
-	generate_scoreboard(num_games=1000, bot_names=[])
+	generate_scoreboard()
 
