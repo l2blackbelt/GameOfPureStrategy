@@ -8,10 +8,10 @@ set -ex
 
 
 #if SCOREBOARD not set, run simple regression and exit
-#if [ -z "${SCOREBOARD}" ]; then
-#	python3 regression.py
-#	exit 0
-#fi
+if [ -z "${SCOREBOARD}" ]; then
+	python3 regression.py
+	exit 0
+fi
 
 
 #else, update scoreboard
@@ -57,7 +57,7 @@ git config --global user.email "${COMMIT_EMAIL}"
 #change repo from https to ssh
 git remote set-url origin "${GIT_REPO}"
 git checkout ${GIT_BRANCH}
-git reset --hard origin/master
+git checkout -- .
 
 python3 scoreboard.py
 
@@ -72,5 +72,5 @@ git add "data.json" "bot_scores.md"
 
 # Commit and push the detected changes if they are found.
 git commit -m "Auto Build Scoreboard."
-#git push ${GIT_ORIGIN} ${GIT_BRANCH}
+git push ${GIT_ORIGIN} ${GIT_BRANCH}
 
