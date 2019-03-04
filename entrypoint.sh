@@ -18,8 +18,6 @@ fi
 
 
 
-
-
 # Verify our environment variables are set
 [ -z "${GIT_REPO}" ] && { echo "Need to set GIT_REPO"; exit 1; }
 [ -z "${GIT_BRANCH}" ] && { echo "Need to set GIT_BRANCH"; exit 1; }
@@ -32,9 +30,6 @@ fi
 # Change to our working directory
 cd ${WORKING_DIR}
 ls -la
-
-
-
 
 
 
@@ -56,6 +51,7 @@ git config --global user.email "${COMMIT_EMAIL}"
 
 #change repo from https to ssh
 git remote set-url origin "${GIT_REPO}"
+git pull
 git checkout ${GIT_BRANCH}
 git checkout -- .
 
