@@ -28,8 +28,7 @@ def play_bots(combination_data):
 
 	return bot1_name, bot1_score, bot2_name, bot2_score
 
-
-def _generate_json(num_games, num_cards, bot_names):
+def _get_bot_classes(bots_to_skip = []):
 
 	import inspect, importlib, os
 
@@ -75,7 +74,7 @@ def _generate_json(num_games, num_cards, bot_names):
 	
 	start = time.time()
 
-	bot_classes = _get_bot_classes()
+	bot_classes = _get_bot_classes(bots_to_skip = bots_to_skip)
 
 	#generate bot combinations; either all bots vs all others, or just run specified bots vs all others
 	if bot_names:
@@ -186,5 +185,5 @@ def generate_scoreboard(num_games=10, num_cards=13, bot_names=[]):
 	_generate_readme(num_games,num_cards)
 
 if __name__== "__main__":
-	generate_scoreboard(num_games=100000)
+	generate_scoreboard(num_games=10000)
 
