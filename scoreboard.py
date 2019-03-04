@@ -13,7 +13,7 @@ if hasattr(__builtins__, 'raw_input'):
 data_file = "data.json"
 
 #any bot class names to leave off the scoreboard for various reasons.
-bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2", "SampleBot", "HalfPointsBot", "HalfPointsAdaptBot"]
+bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2", "SampleBot"]
 
 def play_bots(combination_data):
 	from gameArena import GameArena
