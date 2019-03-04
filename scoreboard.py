@@ -113,10 +113,13 @@ def _generate_json(num_games, num_cards, bot_names):
 	pool = mp.Pool(mp.cpu_count())
 	results = pool.map(play_bots, combination_data) 
 		
-		#update player results
+	#update player results
 	for result in results:
-		bot_results[result[0]][result[2]] = result[1]
-		bot_results[result[2]][result[0]] = result[3]
+
+		bot1_name, bot1_score, bot2_name, bot2_score = result
+
+		bot_results[bot1_name][bot2_name] = bot1_score
+		bot_results[bot2_name][bot1_name] = bot2_score
 	
 	
 	with open(data_file, 'w') as outfile:
@@ -180,10 +183,10 @@ def _generate_readme(num_games, num_cards):
 				o.write("|\n")
 
 
-def generate_scoreboard(num_games=10, num_cards=13, bot_names=[]):
+def generate_scoreboard(num_games=100000, num_cards=13, bot_names=[]):
 	_generate_json(num_games,num_cards,bot_names)
 	_generate_readme(num_games,num_cards)
 
 if __name__== "__main__":
-	generate_scoreboard(num_games=100000, bot_names=["PhillipAdaptoBot"])
+	generate_scoreboard(num_games=1000, bot_names=[])
 
