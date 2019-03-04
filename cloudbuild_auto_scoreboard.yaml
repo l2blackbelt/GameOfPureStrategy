@@ -1,0 +1,58 @@
+#This is the cloudbuild file that generates the new scoreboard
+# run on a trigger in google cloud builds when it detects a modification to a file in /bots
+
+
+# Decrypt the file containing the key
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=.ssh/id_rsa.enc
+  - --plaintext-file=/root/.ssh/id_rsa
+  - --location=global
+  - --keyring=my-keyring
+  - --key=github-key
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+
+# Set up git with key and domain.
+- name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    chmod 600 /root/.ssh/id_rsa
+    cat <<EOF >/root/.ssh/config
+    Hostname github.com
+    IdentityFile /root/.ssh/id_rsa
+    EOF
+    mv .ssh/known_hosts /root/.ssh/known_hosts
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+
+
+#build docker
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: 
+    - '-c'
+    - |
+      cp /root/.ssh/ . -r
+      docker build --build-arg SCOREBOARD=1 -t gcr.io/$PROJECT_ID/docker .
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+
+
+#run docker, passing environment variable SCOREBOARD to entrypoint.sh
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'run', 'gcr.io/$PROJECT_ID/docker']
+  volumes:
+  - name: 'ssh'
+    path: /root/.ssh
+
+images:
+- 'gcr.io/$PROJECT_ID/docker'

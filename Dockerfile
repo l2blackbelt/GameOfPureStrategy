@@ -1,3 +1,10 @@
+#this same Dockerfile will be used both when we run regression, and when we generate a new scoreboard
+#When we generate scoreboard, ENV SCOREBOARD=1
+
+
+
+
+
 # Use an official Python runtime as a parent image
 FROM python:3
 
@@ -9,5 +16,23 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Run app.py when the container launches
-CMD ["python3", "regression.py"]
+
+#set flag whether to do scoreboard or normal regression from environment variable
+ARG SCOREBOARD
+ENV SCOREBOARD=$SCOREBOARD
+
+
+#hardcode other environment variables for the repo
+ENV GIT_REPO="git@github.com:l2blackbelt/GameOfPureStrategy.git"
+ENV GIT_BRANCH="master"
+ENV GIT_ORIGIN="origin"
+ENV COMMIT_USER="Magic Auto-build"
+ENV COMMIT_EMAIL="<>"
+ENV WORKING_DIR="."
+ENV FILES_TO_COMMIT="."
+
+
+
+# Run entrypoint
+COPY entrypoint.sh /app
+CMD /bin/sh entrypoint.sh
