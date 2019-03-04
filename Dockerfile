@@ -16,9 +16,13 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-ADD /.ssh/id_rsa .
-ADD /.ssh/known_hosts .
 
+#set flag whether to do scoreboard or normal regression from environment variable
+ARG SCOREBOARD
+ENV SCOREBOARD=$SCOREBOARD
+
+
+#hardcode other environment variables for the repo
 ENV GIT_REPO="git@github.com:l2blackbelt/GameOfPureStrategy.git"
 ENV GIT_BRANCH="master"
 ENV GIT_ORIGIN="origin"
