@@ -1,18 +1,18 @@
 # Bot Scores
-Results of 100000 1v1 games, with 13 cards each
+Results of 10 1v1 games, with 13 cards each
 
 |rank|bot|score|results|
 |-----|-----|-----|-----|
-|**#1**|SafeBetBot|0||
-|**#1**|RandomBot|0||
-|**#1**|PhillipBotUpBot|0||
-|**#1**|PhillipAdaptoBot|0||
-|**#1**|OddBot|0||
-|**#1**|ObviousPlusOneBot|0||
-|**#1**|ObviousBot|0||
-|**#1**|LearningBot|0||
-|**#1**|InterestingBot|0||
-|**#1**|HalfPointsBot|0||
-|**#1**|HalfPointsAdaptBot|0||
-|**#1**|GreedBot|0||
-|**#1**|BasicBot|0||
+|**#0**|PhillipAdaptoBot|10|WIN 100.0% vs SafeBetBot<br>WIN 100.0% vs OddBot<br>WIN 100.0% vs BasicBot<br>WIN 90.0% vs RandomBot<br>WIN 90.0% vs HalfPointsBot<br>WIN 90.0% vs GreedBot<br>WIN 70.0% vs PhillipBotUpBot<br>WIN 70.0% vs ObviousBot<br>WIN 70.0% vs InterestingBot<br>WIN 60.0% vs ObviousPlusOneBot<br>LOSS 40.0% vs HalfPointsAdaptBot<br>LOSS 30.0% vs LearningBot<br>|
+|**#0**|LearningBot|10|WIN 90.0% vs ObviousPlusOneBot<br>WIN 90.0% vs ObviousBot<br>WIN 80.0% vs PhillipBotUpBot<br>WIN 80.0% vs OddBot<br>WIN 80.0% vs InterestingBot<br>WIN 70.0% vs PhillipAdaptoBot<br>WIN 70.0% vs HalfPointsAdaptBot<br>WIN 70.0% vs GreedBot<br>WIN 70.0% vs BasicBot<br>WIN 60.0% vs HalfPointsBot<br>LOSS 50.0% vs SafeBetBot<br>LOSS 40.0% vs RandomBot<br>|
+|**#1**|ObviousPlusOneBot|9|WIN 100.0% vs ObviousBot<br>WIN 100.0% vs HalfPointsAdaptBot<br>WIN 90.0% vs SafeBetBot<br>WIN 90.0% vs PhillipBotUpBot<br>WIN 90.0% vs OddBot<br>WIN 80.0% vs RandomBot<br>WIN 80.0% vs GreedBot<br>WIN 80.0% vs BasicBot<br>WIN 70.0% vs InterestingBot<br>LOSS 50.0% vs HalfPointsBot<br>LOSS 30.0% vs PhillipAdaptoBot<br>LOSS 10.0% vs LearningBot<br>|
+|**#2**|ObviousBot|8|WIN 100.0% vs SafeBetBot<br>WIN 100.0% vs OddBot<br>WIN 90.0% vs RandomBot<br>WIN 90.0% vs PhillipBotUpBot<br>WIN 90.0% vs HalfPointsAdaptBot<br>WIN 90.0% vs GreedBot<br>WIN 80.0% vs BasicBot<br>WIN 70.0% vs HalfPointsBot<br>LOSS 20.0% vs PhillipAdaptoBot<br>LOSS 10.0% vs LearningBot<br>LOSS 10.0% vs InterestingBot<br>LOSS 0.0% vs ObviousPlusOneBot<br>|
+|**#3**|SafeBetBot|6|WIN 100.0% vs OddBot<br>WIN 100.0% vs HalfPointsBot<br>WIN 100.0% vs GreedBot<br>WIN 80.0% vs RandomBot<br>WIN 80.0% vs InterestingBot<br>WIN 70.0% vs HalfPointsAdaptBot<br>LOSS 50.0% vs LearningBot<br>LOSS 30.0% vs PhillipBotUpBot<br>LOSS 0.0% vs PhillipAdaptoBot<br>LOSS 0.0% vs ObviousPlusOneBot<br>LOSS 0.0% vs ObviousBot<br>LOSS 0.0% vs BasicBot<br>|
+|**#3**|PhillipBotUpBot|6|WIN 70.0% vs BasicBot<br>WIN 60.0% vs SafeBetBot<br>WIN 60.0% vs RandomBot<br>WIN 60.0% vs InterestingBot<br>WIN 60.0% vs HalfPointsBot<br>WIN 60.0% vs GreedBot<br>LOSS 30.0% vs OddBot<br>LOSS 20.0% vs PhillipAdaptoBot<br>LOSS 20.0% vs LearningBot<br>LOSS 20.0% vs HalfPointsAdaptBot<br>LOSS 10.0% vs ObviousPlusOneBot<br>LOSS 0.0% vs ObviousBot<br>|
+|**#3**|BasicBot|6|WIN 100.0% vs OddBot<br>WIN 100.0% vs InterestingBot<br>WIN 100.0% vs HalfPointsBot<br>WIN 100.0% vs GreedBot<br>WIN 80.0% vs HalfPointsAdaptBot<br>WIN 60.0% vs RandomBot<br>LOSS 30.0% vs LearningBot<br>LOSS 20.0% vs PhillipBotUpBot<br>LOSS 20.0% vs ObviousBot<br>LOSS 10.0% vs ObviousPlusOneBot<br>LOSS 0.0% vs SafeBetBot<br>LOSS 0.0% vs PhillipAdaptoBot<br>|
+|**#4**|GreedBot|5|WIN 90.0% vs OddBot<br>WIN 90.0% vs InterestingBot<br>WIN 90.0% vs HalfPointsBot<br>WIN 90.0% vs HalfPointsAdaptBot<br>WIN 80.0% vs RandomBot<br>LOSS 40.0% vs PhillipBotUpBot<br>LOSS 30.0% vs LearningBot<br>LOSS 20.0% vs ObviousPlusOneBot<br>LOSS 10.0% vs PhillipAdaptoBot<br>LOSS 10.0% vs ObviousBot<br>LOSS 0.0% vs SafeBetBot<br>LOSS 0.0% vs BasicBot<br>|
+|**#5**|HalfPointsBot|4|WIN 90.0% vs OddBot<br>WIN 70.0% vs InterestingBot<br>WIN 70.0% vs HalfPointsAdaptBot<br>WIN 60.0% vs RandomBot<br>LOSS 50.0% vs ObviousPlusOneBot<br>LOSS 40.0% vs PhillipBotUpBot<br>LOSS 40.0% vs LearningBot<br>LOSS 30.0% vs ObviousBot<br>LOSS 10.0% vs PhillipAdaptoBot<br>LOSS 10.0% vs GreedBot<br>LOSS 0.0% vs SafeBetBot<br>LOSS 0.0% vs BasicBot<br>|
+|**#5**|HalfPointsAdaptBot|4|WIN 90.0% vs RandomBot<br>WIN 80.0% vs PhillipBotUpBot<br>WIN 80.0% vs OddBot<br>WIN 70.0% vs InterestingBot<br>LOSS 50.0% vs PhillipAdaptoBot<br>LOSS 30.0% vs SafeBetBot<br>LOSS 30.0% vs HalfPointsBot<br>LOSS 20.0% vs LearningBot<br>LOSS 20.0% vs BasicBot<br>LOSS 10.0% vs ObviousBot<br>LOSS 10.0% vs GreedBot<br>LOSS 0.0% vs ObviousPlusOneBot<br>|
+|**#6**|InterestingBot|3|WIN 90.0% vs OddBot<br>WIN 90.0% vs ObviousBot<br>WIN 60.0% vs RandomBot<br>LOSS 40.0% vs PhillipBotUpBot<br>LOSS 30.0% vs ObviousPlusOneBot<br>LOSS 30.0% vs HalfPointsBot<br>LOSS 30.0% vs HalfPointsAdaptBot<br>LOSS 20.0% vs SafeBetBot<br>LOSS 20.0% vs PhillipAdaptoBot<br>LOSS 20.0% vs LearningBot<br>LOSS 10.0% vs GreedBot<br>LOSS 0.0% vs BasicBot<br>|
+|**#7**|RandomBot|2|WIN 60.0% vs OddBot<br>WIN 60.0% vs LearningBot<br>LOSS 40.0% vs PhillipBotUpBot<br>LOSS 40.0% vs HalfPointsBot<br>LOSS 40.0% vs BasicBot<br>LOSS 30.0% vs InterestingBot<br>LOSS 20.0% vs SafeBetBot<br>LOSS 20.0% vs GreedBot<br>LOSS 10.0% vs PhillipAdaptoBot<br>LOSS 10.0% vs ObviousPlusOneBot<br>LOSS 10.0% vs HalfPointsAdaptBot<br>LOSS 0.0% vs ObviousBot<br>|
+|**#8**|OddBot|1|WIN 60.0% vs PhillipBotUpBot<br>LOSS 40.0% vs RandomBot<br>LOSS 20.0% vs HalfPointsAdaptBot<br>LOSS 10.0% vs ObviousPlusOneBot<br>LOSS 10.0% vs LearningBot<br>LOSS 10.0% vs InterestingBot<br>LOSS 10.0% vs HalfPointsBot<br>LOSS 10.0% vs GreedBot<br>LOSS 0.0% vs SafeBetBot<br>LOSS 0.0% vs PhillipAdaptoBot<br>LOSS 0.0% vs ObviousBot<br>LOSS 0.0% vs BasicBot<br>|
