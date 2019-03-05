@@ -1,16 +1,18 @@
 # Bot Scores
-Results of 1000 1v1 games, with 13 cards each
+Results of 100000 1v1 games, with 13 cards each
 
 |rank|bot|score|results|
 |-----|-----|-----|-----|
-|**#1**|PhillipAdaptoBot|9|WIN 99.7% vs ObviousBot<br>WIN 99.6% vs ObviousPlusOneBot<br>WIN 99.6% vs InterestingBot<br>WIN 99.2% vs OddBot<br>WIN 88.0% vs GreedBot<br>WIN 84.8% vs BasicBot<br>WIN 84.0% vs SafeBetBot<br>WIN 79.3% vs RandomBot<br>WIN 71.7% vs PhillipBotUpBot<br>LOSS 25.3% vs LearningBot<br>|
-|**#1**|LearningBot|9|WIN 99.9% vs ObviousPlusOneBot<br>WIN 99.9% vs ObviousBot<br>WIN 99.0% vs InterestingBot<br>WIN 83.1% vs OddBot<br>WIN 73.3% vs PhillipBotUpBot<br>WIN 73.2% vs PhillipAdaptoBot<br>WIN 59.2% vs SafeBetBot<br>WIN 57.3% vs RandomBot<br>WIN 51.6% vs GreedBot<br>LOSS 44.1% vs BasicBot<br>|
-|**#2**|ObviousPlusOneBot|8|WIN 100.0% vs ObviousBot<br>WIN 97.0% vs GreedBot<br>WIN 93.5% vs OddBot<br>WIN 90.2% vs InterestingBot<br>WIN 88.1% vs SafeBetBot<br>WIN 86.7% vs PhillipBotUpBot<br>WIN 86.7% vs BasicBot<br>WIN 86.5% vs RandomBot<br>LOSS 0.3% vs PhillipAdaptoBot<br>LOSS 0.1% vs LearningBot<br>|
-|**#3**|ObviousBot|6|WIN 99.1% vs OddBot<br>WIN 97.5% vs BasicBot<br>WIN 96.7% vs RandomBot<br>WIN 95.7% vs SafeBetBot<br>WIN 91.6% vs GreedBot<br>WIN 91.5% vs PhillipBotUpBot<br>LOSS 37.7% vs InterestingBot<br>LOSS 0.2% vs PhillipAdaptoBot<br>LOSS 0.1% vs LearningBot<br>LOSS 0.0% vs ObviousPlusOneBot<br>|
-|**#4**|SafeBetBot|4|WIN 94.9% vs OddBot<br>WIN 85.3% vs GreedBot<br>WIN 71.4% vs InterestingBot<br>WIN 51.4% vs RandomBot<br>LOSS 39.2% vs LearningBot<br>LOSS 22.2% vs PhillipBotUpBot<br>LOSS 13.1% vs PhillipAdaptoBot<br>LOSS 11.1% vs ObviousPlusOneBot<br>LOSS 3.6% vs ObviousBot<br>LOSS 0.0% vs BasicBot<br>|
-|**#4**|InterestingBot|4|WIN 89.0% vs OddBot<br>WIN 76.5% vs PhillipBotUpBot<br>WIN 73.8% vs RandomBot<br>WIN 60.6% vs ObviousBot<br>LOSS 34.1% vs GreedBot<br>LOSS 26.7% vs SafeBetBot<br>LOSS 24.9% vs BasicBot<br>LOSS 8.3% vs ObviousPlusOneBot<br>LOSS 0.8% vs LearningBot<br>LOSS 0.4% vs PhillipAdaptoBot<br>|
-|**#4**|GreedBot|4|WIN 97.8% vs OddBot<br>WIN 81.2% vs RandomBot<br>WIN 71.5% vs PhillipBotUpBot<br>WIN 64.2% vs InterestingBot<br>LOSS 45.5% vs LearningBot<br>LOSS 13.2% vs SafeBetBot<br>LOSS 11.4% vs BasicBot<br>LOSS 11.2% vs PhillipAdaptoBot<br>LOSS 6.6% vs ObviousBot<br>LOSS 2.6% vs ObviousPlusOneBot<br>|
-|**#4**|BasicBot|4|WIN 94.5% vs OddBot<br>WIN 86.8% vs GreedBot<br>WIN 73.3% vs InterestingBot<br>WIN 54.9% vs LearningBot<br>LOSS 48.7% vs RandomBot<br>LOSS 23.4% vs PhillipBotUpBot<br>LOSS 12.3% vs PhillipAdaptoBot<br>LOSS 11.9% vs ObviousPlusOneBot<br>LOSS 2.1% vs ObviousBot<br>LOSS 0.0% vs SafeBetBot<br>|
-|**#5**|PhillipBotUpBot|3|WIN 66.5% vs BasicBot<br>WIN 66.3% vs SafeBetBot<br>WIN 56.1% vs RandomBot<br>LOSS 49.1% vs OddBot<br>LOSS 27.0% vs PhillipAdaptoBot<br>LOSS 25.6% vs GreedBot<br>LOSS 24.8% vs LearningBot<br>LOSS 21.3% vs InterestingBot<br>LOSS 12.0% vs ObviousPlusOneBot<br>LOSS 7.9% vs ObviousBot<br>|
-|**#6**|RandomBot|1|WIN 50.3% vs BasicBot<br>LOSS 49.5% vs OddBot<br>LOSS 46.8% vs SafeBetBot<br>LOSS 42.1% vs PhillipBotUpBot<br>LOSS 41.2% vs LearningBot<br>LOSS 24.6% vs InterestingBot<br>LOSS 19.8% vs PhillipAdaptoBot<br>LOSS 17.5% vs GreedBot<br>LOSS 12.7% vs ObviousPlusOneBot<br>LOSS 2.7% vs ObviousBot<br>|
-|**#7**|OddBot|0|LOSS 49.8% vs PhillipBotUpBot<br>LOSS 48.2% vs RandomBot<br>LOSS 16.1% vs LearningBot<br>LOSS 10.2% vs InterestingBot<br>LOSS 5.3% vs ObviousPlusOneBot<br>LOSS 4.9% vs SafeBetBot<br>LOSS 4.9% vs BasicBot<br>LOSS 2.0% vs GreedBot<br>LOSS 0.8% vs PhillipAdaptoBot<br>LOSS 0.8% vs ObviousBot<br>|
+|**#1**|SafeBetBot|0||
+|**#1**|RandomBot|0||
+|**#1**|PhillipBotUpBot|0||
+|**#1**|PhillipAdaptoBot|0||
+|**#1**|OddBot|0||
+|**#1**|ObviousPlusOneBot|0||
+|**#1**|ObviousBot|0||
+|**#1**|LearningBot|0||
+|**#1**|InterestingBot|0||
+|**#1**|HalfPointsBot|0||
+|**#1**|HalfPointsAdaptBot|0||
+|**#1**|GreedBot|0||
+|**#1**|BasicBot|0||
