@@ -53,6 +53,7 @@ steps:
   volumes:
   - name: 'ssh'
     path: /root/.ssh
+  timeout: 9000s #2.5 hour time-out
 
 images:
 - 'gcr.io/$PROJECT_ID/docker'
