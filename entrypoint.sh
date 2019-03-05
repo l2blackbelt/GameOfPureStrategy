@@ -50,11 +50,10 @@ git config --global user.email "${COMMIT_EMAIL}"
 #change repo from https to ssh
 git remote set-url origin "${GIT_REPO}"
 git checkout ${GIT_BRANCH}
-git checkout -- .
+git reset HEAD -- .
 
 python3 scoreboard.py
 
-git status
 git pull origin master
 
 #overwrite instead of merge
@@ -64,6 +63,7 @@ mv data.json scoreboard
 mv bot_scores.md scoreboard
 
 git add scoreboard/*
+git status
 
 
 # Commit and push the detected changes if they are found.

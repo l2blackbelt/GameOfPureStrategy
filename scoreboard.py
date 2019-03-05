@@ -70,7 +70,7 @@ def _play_game(num_games, num_cards, player_arr):
 #generate scoreboard json by running games
 def _generate_json(num_games, num_cards, bot_names):
 
-	import itertools, time
+	import itertools, time, sys
 	
 	start = time.time()
 
@@ -113,14 +113,16 @@ def _generate_json(num_games, num_cards, bot_names):
 	print("Number of processors: ", cpu_count)
 
 	results = []
-	if cpu_count > 1:
+	if False:
 		print("we're multiprocessing, gentlemen")
 		pool = mp.Pool(cpu_count)
 		results = pool.map(play_bots, combination_data)
 	else:
 		print("we're single-threaded, boyos")
+		sys.stdout.flush()
 		for combo in combination_data:
 			results.append(play_bots(combo))
+			sys.stdout.flush()
 		
 	#update player results
 	for result in results:
@@ -192,7 +194,7 @@ def _generate_readme(num_games, num_cards):
 				o.write("|\n")
 
 
-def generate_scoreboard(num_games=100000, num_cards=13, bot_names=[]):
+def generate_scoreboard(num_games=10, num_cards=13, bot_names=[]):
 	_generate_json(num_games,num_cards,bot_names)
 	_generate_readme(num_games,num_cards)
 
