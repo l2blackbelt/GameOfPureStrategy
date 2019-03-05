@@ -184,9 +184,11 @@ class BuyingPowerBot(BasicBot): #can extend one of the simple bots, BasicBot, Ob
 		self.num_cards = num_cards
 		self.total_prize = sum(nums)
 		self.abort_Max = 0
+		self.abort_Three = 0
 		return
 	def end_game(self, result):
 		self.abort_Max = 0
+		self.abort_Three = 0
 		return
 	def take_turn(self, game_state, verbose = False):
 		"""
@@ -233,14 +235,25 @@ class BuyingPowerBot(BasicBot): #can extend one of the simple bots, BasicBot, Ob
 		high_percentage = [1, 2, 3]
 		idx = random.randint(0,len(percentage)-1)
 		high_idx = random.randint(0,len(high_percentage)-1)
+
+		if len(my_hand) == 2 and same == 1 and self.abort_Three == 0:
+			if game_state.prize_this_round > game_state.current_prizes[0]:
+				return max(my_hand)
+			else:
+				return min(my_hand)
+
+		if self.abort_Three == 1:
+			return max(my_hand)	
 		
 		if safe_to_use == 1 and max(game_state.current_prizes) == game_state.prize_this_round:
 			return max(game_state.current_hands[self.player_num])
 
-		if len(my_hand) == 2 and same == 1:
-			if game_state.prize_this_round > game_state.current_prizes[0]:
-				return max(my_hand)
+		if len(my_hand) == 3 and same == 1:
+			if (game_state.prize_this_round + min(game_state.current_prizes)) < max(game_state.current_prizes):
+				return min(my_hand)
 			else:
+				self.abort_Three = 1
+				my_hand.remove(min(my_hand))
 				return min(my_hand)
 	
 		if self.abort_Max == 1:
