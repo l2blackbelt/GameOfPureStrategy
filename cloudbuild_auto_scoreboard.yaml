@@ -2,6 +2,7 @@
 # run on a trigger in google cloud builds when it detects a modification to a file in /bots
 
 
+timeout: 9001s #2.5 hour time-out
 # Decrypt the file containing the key
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
