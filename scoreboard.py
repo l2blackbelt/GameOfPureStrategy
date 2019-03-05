@@ -109,9 +109,16 @@ def _generate_json(num_games, num_cards, bot_names):
 		combination_data.append(combination + (num_cards, num_games))
 
 	#turn each game into a process:
-	print("Number of processors: ", mp.cpu_count())
-	pool = mp.Pool(mp.cpu_count())
-	results = pool.map(play_bots, combination_data) 
+	cpu_count = mp.cpu_count()
+	print("Number of processors: ", cpu_count)
+
+	if cpu_count > 1:
+		print("we're multiprocessing, gentlemen")
+		pool = mp.Pool(cpu_count)
+		results = pool.map(play_bots, combination_data)
+	else:
+		print("we're single-threaded, boyos")
+		results.append(play_bots(combination_data))
 		
 	#update player results
 	for result in results:
