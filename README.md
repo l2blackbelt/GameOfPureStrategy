@@ -5,7 +5,7 @@ dev branch
 Battlin' strategies to win the most games of the [Game of Pure Strategy (GOPS)](https://en.wikipedia.org/wiki/Goofspiel)
 
 
-### [Check out the current bot leaderboard here!](bot_scores.md)
+### [Check out the current bot leaderboard here!](scoreboard/bot_scores.md)
 
 ## What in the sweet Jesus is this?
 I thought the Game Of Pure Stratergy was really cool, so I created a python class, GameOfPureStrategy, to simulate a game of it.
