@@ -23,6 +23,8 @@ def play_bots(combination_data):
 	num_games = combination_data[3]
 
 	print(str(bot1_name)+" vs "+str(bot2_name))
+	import sys
+	sys.stdout.flush()
 	game = GameArena(num_cards=num_cards, num_games=num_games, player_arr=[bot1_class, bot2_class])
 	bot1_score, bot2_score = game.play(play_method = "quiet")
 
@@ -115,13 +117,8 @@ def _generate_json(num_games, num_cards, bot_names):
 	results = []
 	if cpu_count > 1:
 		print("we're multiprocessing, gentlemen")
-		pool = mp.Pool(cpu_count)
-		results = pool.map(play_bots, combination_data)
-	else:
-		print("we're single-threaded, boyos")
-		for combo in combination_data:
-			results.append(play_bots(combo))
-		
+	pool = mp.Pool(cpu_count)
+	results = pool.map(play_bots, combination_data)
 	#update player results
 	for result in results:
 
