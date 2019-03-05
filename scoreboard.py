@@ -119,7 +119,7 @@ def _generate_json(num_games, num_cards, bot_names):
 		results = pool.map(play_bots, combination_data)
 	else:
 		print("we're single-threaded, boyos")
-		for combo in combinations:
+		for combo in combination_data:
 			results.append(play_bots(combo))
 		
 	#update player results
