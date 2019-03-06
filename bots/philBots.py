@@ -71,7 +71,10 @@ class PhillipAdaptoBot(BasicBot):
 		if self.state == 0:#default case should be obvious bot
 			play = game_state.prize_this_round
 		elif self.state == 1: #bidding fairly didn't win the first round, could be playing a random bot or literally anything...
-		  play = min(my_current_hand)
+			if len(my_current_hand) > 1:
+				play = min(my_current_hand) + 1
+			else:
+				play = min(my_current_hand)
 		elif self.state == 2:
 			play = max(my_current_hand)
 		elif self.state == 3:
