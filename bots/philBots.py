@@ -72,7 +72,7 @@ class PhillipAdaptoBot(BasicBot):
 			play = game_state.prize_this_round
 		elif self.state == 1: #bidding fairly didn't win the first round, could be playing a random bot or literally anything...
 			if len(my_current_hand) > 1:
-				play = min(my_current_hand) + 1
+				play = num_cards - len(my_current_hand) + 2
 			else:
 				play = min(my_current_hand)
 		elif self.state == 2:
