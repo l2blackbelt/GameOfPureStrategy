@@ -107,12 +107,6 @@ class InterestingBot(BasicBot):
 		
 		return play
 
-#class inheretence.  Instantiates an interestingbot but overwites max_overbid in init.
-class InterestingBot_2(InterestingBot):
-	def __init__(self, player_num, num_players, num_cards, num_games):
-		InterestingBot.__init__(self, player_num, num_players, num_cards, num_games, max_overbid = 2)
-
-
 
 class LearningBot(ObviousBot):
 	def __init__(self, player_num, num_players, num_cards, num_games, just_watch = False):
@@ -131,12 +125,12 @@ class LearningBot(ObviousBot):
 		self.just_watch = just_watch
 		return
 
-	def __note_last_move(self,opponent_current_hand):
+	def _note_last_move(self,opponent_current_hand):
 		played_card_last_round = [play for play in self.opponent_hand_last_round if play not in opponent_current_hand]
 		played_card_last_round = played_card_last_round[0]
 		self.frequency_array[self.prize_last_round-1][played_card_last_round-1] +=1
 
-	def __print_current_frequency_array(self):
+	def _print_current_frequency_array(self):
 		log(self,"Tracking player "+str(self.player_to_beat))
 		log(self,"Current frequency_array")
 		log(self, " x = frequency opponent plays response 1-"+str(self.num_cards)+" given prize")
@@ -146,7 +140,7 @@ class LearningBot(ObviousBot):
 
 	def end_game(self, result):
 		#reset counter on new game
-		self.__note_last_move([])
+		self._note_last_move([])
 		self.opponent_hand_last_round = None
 		
 
@@ -154,7 +148,7 @@ class LearningBot(ObviousBot):
 
 		#record moves from last round
 		if self.opponent_hand_last_round != None: #if not first round of a game
-			self.__note_last_move(game_state.current_hands[self.player_to_beat])
+			self._note_last_move(game_state.current_hands[self.player_to_beat])
 
 
 		#if have history to base on, play best counter
@@ -176,7 +170,64 @@ class LearningBot(ObviousBot):
 		self.opponent_hand_last_round = [card for card in game_state.current_hands[self.player_to_beat]]
 
 		if verbose:
-			self.__print_current_frequency_array()
+			self._print_current_frequency_array()
+
+		return play
+
+
+#try to split up opponents moves into different parts of the game
+class SmarterLearningBot(ObviousBot):
+	def __init__(self, player_num, num_players, num_cards, num_games):
+		#Bot is initialized once at the beginning of the competition, and persists between games.
+		ObviousBot.__init__(self, player_num, num_players, num_cards, num_games)
+
+		
+
+		self.number_of_splits = 3
+		self.learningBots = []
+		self.whose_turn = [int(num/(num_cards/self.number_of_splits)) for num in range(0,num_cards)]
+		print(self.whose_turn)
+		for i in range(0,self.number_of_splits):
+			self.learningBots.append(LearningBot(player_num, num_players, num_cards, num_games))
+
+		self.num_cards = num_cards
+
+		#count which turn it is in the game
+		self.turn = 0
+
+	def end_game(self, result):
+
+		#reset counter on new game
+		self.learningBots[-1]._note_last_move([])
+		for bot in self.learningBots:
+			bot.opponent_hand_last_round = None
+		
+
+		self.turn = 0
+
+		
+
+	def take_turn(self, game_state, verbose = False):
+
+
+		#let active bot take a turn
+		active_bot = self.learningBots[self.whose_turn[self.turn]]
+		play = active_bot.take_turn(game_state)
+
+		#update all bot's game-tracking variables to that of active_bot, so they don't get left behind when we switch to them
+		for bot in self.learningBots:
+			bot.opponent_hand_last_round = active_bot.opponent_hand_last_round
+			bot.prize_last_round = active_bot.prize_last_round
+
+
+		self.turn+=1
+
+
+		
+		if verbose:
+			for idx, bot in enumerate(self.learningBots):
+				print("learningBot ",str(idx))
+				bot._print_current_frequency_array()
 
 		return play
 
