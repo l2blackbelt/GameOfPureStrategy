@@ -18,6 +18,25 @@ def get_Chosen(num_cards, desired_score):
 	chosen.sort
 	return chosen
 	
+class shiftBot(BasicBot):
+	def __init__(self, player_num, num_players, num_cards):
+		#this bot is pretty dumb, and just plays bottom up
+		self.shift_hand = list(range(1, num_cards+1))
+		self.num_cards = num_cards
+		self.player_num = player_num #I can use this to cheat I think by asking the other bots what they are planning on playing
+		self.num_players = num_players
+		self.start_index = 1
+
+	def end_game(self, result):
+		#increment index
+		self.start_index += 1
+		if(self.start_index >= self.num_cards):
+			self.start_index = 0
+
+	def take_turn(self, game_state, verbose = False):
+		num_cards_remaining = len(game_state.current_prizes)
+		index = (self.start_index + self.num_cards - num_cards_remaining) % self.num_cards
+		return self.shift_hand[index]
 
 class PhillipAdaptoBot(BasicBot):
 
