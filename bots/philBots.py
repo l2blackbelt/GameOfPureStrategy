@@ -29,14 +29,13 @@ class shiftBot(BasicBot):
 
 	def end_game(self, result):
 		#increment index
-		self.start_index += 1
+		self.start_index += 6 #self.numcards -1 /2?
 		if(self.start_index >= self.num_cards):
-			self.start_index = 0
+			self.start_index = 0 #self.start_index % self.num_cards
 
 	def take_turn(self, game_state, verbose = False):
-		num_cards_remaining = len(game_state.current_prizes)
-		index = (self.start_index + self.num_cards - num_cards_remaining) % self.num_cards
-		return self.shift_hand[index]
+		
+		return (game_state.prize_this_round + self.start_index) % self.num_cards + 1
 
 class PhillipAdaptoBot(BasicBot):
 
