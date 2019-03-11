@@ -19,7 +19,7 @@ def get_Chosen(num_cards, desired_score):
 	return chosen
 	
 class shiftBot(BasicBot):
-	def __init__(self, player_num, num_players, num_cards):
+	def __init__(self, player_num, num_players, num_cards, num_games):
 		#this bot is pretty dumb, and just plays bottom up
 		self.shift_hand = list(range(1, num_cards+1))
 		self.num_cards = num_cards
