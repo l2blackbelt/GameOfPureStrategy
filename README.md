@@ -1,22 +1,22 @@
 # GameOfPureStrategy
 
-dev branch
-
 Battlin' strategies to win the most games of the [Game of Pure Strategy (GOPS)](https://en.wikipedia.org/wiki/Goofspiel)
 
 
 ### [Check out the current bot leaderboard here!](scoreboard/bot_scores.md)
 
-## What in the sweet Jesus is this?
-I thought the Game Of Pure Stratergy was really cool, so I created a python class, GameOfPureStrategy, to simulate a game of it.
-Then I created GameArena so I could simulate multiple games in a row.  Then I started creating ever more complicated bots to play.  I'm not sure what happened, now I have a very flexible implementation of GOPS in python, **where competing "solutions" can fight head to head for the most wins in nerdy combat.**
+## What is this?
+I found GOPS interesting, due to the facts that 
+1. it is the only extant pure strategy card game (no luck of the draw), and 
+2. it is currently unsolved >4 cards by modern mathematics
 
-And now that you're here, we're here together.
+I thought it would be fun to try my hand at designing strategies to play this game, and pitting them against each other to see which won out.
+So I wrote a bunch of python classes to simulate games of GOPS, and an object-oriented structure that make it easy for anyone to write classes to play.
 
 If you dig this half as much as I do, perhaps you want to make a bot and see how it performs.  If so, here's what you need to know:
 
 ## How do I use this?
-* play_GOPS.py is the module that kicks off games.
+* play_GOPS.py is the module that kicks off test games.
 	* Bots are passed by the class to GameArena, so you can easily modify:
 		* which bots participate, 
 		* how many games to play
