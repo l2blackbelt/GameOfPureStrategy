@@ -1,13 +1,13 @@
+#This cloudbuild.yaml runs regression on all bots to make sure they can all play correctly.
+
+
 steps:
-- name: 'gcr.io/cloud-builders/git'
-  args: ['clone', 'https://github.com/l2blackbelt/GameOfPureStrategy.git']
+
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/docker', '.' ]
-- name: 'gcr.io/cloud-builders/git'
-  args: ['add', 'data.json', 'bot_scores.md']
-- name: 'gcr.io/cloud-builders/git'
-  args: ['commit', '-m', 're-generate scoreboard']
-- name: 'gcr.io/cloud-builders/git'
-  args: ['push']
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'run', 'gcr.io/$PROJECT_ID/docker']
+
+
 images:
 - 'gcr.io/$PROJECT_ID/docker'

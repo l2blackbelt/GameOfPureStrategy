@@ -40,7 +40,7 @@ class shiftBot(BasicBot):
 
 class PhillipAdaptoBot(BasicBot):
 
-	def __init__(self, player_num, num_players, num_cards):
+	def __init__(self, player_num, num_players, num_cards, num_games):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
 		self.player_num = player_num #I can use this to cheat I think by asking the other bots what they are planning on playing
 		self.num_players = num_players #normally 2, but ideally, you should allow your bot to gracefully handle more
@@ -67,7 +67,7 @@ class PhillipAdaptoBot(BasicBot):
 			#It think that means I lost, and am not hard countering
 			self.state += 1
 			if self.state >= self.implemented_strategies:
-				self.state = 7 #You're probably sunk at this point
+				self.state = 0 #You're probably sunk at this point
 			#if self.current_record > self.staying_power:
 				#self.wobble = 1
 			self.current_record = 0
@@ -90,7 +90,10 @@ class PhillipAdaptoBot(BasicBot):
 		if self.state == 0:#default case should be obvious bot
 			play = game_state.prize_this_round
 		elif self.state == 1: #bidding fairly didn't win the first round, could be playing a random bot or literally anything...
-		  play = min(my_current_hand)
+			if len(my_current_hand) > 1:
+				play = self.num_cards - len(my_current_hand) + 2
+			else:
+				play = min(my_current_hand)
 		elif self.state == 2:
 			play = max(my_current_hand)
 		elif self.state == 3:

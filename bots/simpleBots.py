@@ -7,11 +7,12 @@ This basic bot will play the next card in its hard every turn
 All competing bots should extend this model
 """
 class BasicBot:
-	def __init__(self, player_num, num_players, num_cards):
+	def __init__(self, player_num, num_players, num_cards, num_games):
 		#Bot is initialized once at the beginning of the competition, and persists between games.
 		self.player_num = player_num
 		self.num_players = num_players
 		self.num_cards = num_cards
+		self.num_games = num_games
 		return
 	def end_game(self, result):
 		#Called by GameArena upon game end. Result is the number of the winning bot previous game, -1 if tie
