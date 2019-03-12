@@ -25,17 +25,24 @@ class shiftBot(BasicBot):
 		self.num_cards = num_cards
 		self.player_num = player_num #I can use this to cheat I think by asking the other bots what they are planning on playing
 		self.num_players = num_players
-		self.start_index = 1
+		self.start_index = 0
+		self.incrementer = 0
+		self.last_increment = 0
 
 	def end_game(self, result):
 		#increment index
-		self.start_index += 6 #self.numcards -1 /2?
+		self.incrementer += 1 #self.numcards -1 /2?
+		if(self.incrementer > self.last_increment):
+			self.start_index += 2
+			self.last_increment = self.incrementer
+			self.incrementer = 0
 		if(self.start_index >= self.num_cards):
-			self.start_index = 0 #self.start_index % self.num_cards
+			self.start_index = self.start_index % self.num_cards
 
 	def take_turn(self, game_state, verbose = False):
 		
 		return (game_state.prize_this_round + self.start_index) % self.num_cards + 1
+
 
 class PhillipAdaptoBot(BasicBot):
 
