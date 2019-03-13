@@ -28,48 +28,57 @@ class Simple3NeuralBot(BasicBot):
 	def __init__(self, player_num, num_players, num_cards, num_games):
 		self.num_cards = num_cards
 		self.player_num = player_num
-
+		self.num_games = num_games
+		self.game_counter = 0
+		self.alpha = 1
+		self.input_layer = []
 		self.opp_trust = 2
+		self.win_harder = 1
 		#initialize the layers that are used
-		num_inputs = 3
+		num_inputs = 4
 		#self.input_layer = [0, 0, 0] #initial values, these change every turn
 		self.syn0 = 2*np.random.random((num_inputs,4)) - 1 #weights from input to middle layer
-		self.syn1 = 2*np.random.random((4,1)) - 1 #weights from middle layer to output
+		self.syn1 = 2*np.random.random((4,4)) - 1 #weights from middle0 layer to middle1
+		self.syn2 = 2*np.random.random((4,1)) - 1
 
 	def end_game(self, result):
 
 		if(result):
-			#not the first turn and should learn what happened
-			opp_last_play = sum(self.opp_last_hand)
-			opp_desire = opp_last_play - self.last_prize_card #how much did opp want the card?
-			
-			#normalize the error
-			if(opp_desire < self.opp_trust):
-				#opp didn't overpay for the card, so we should have won by one point
-				idx = 0
-				for card in self.my_last_hand:
-					if(card > opp_last_play):
-						break
-					else:
-						idx += 1
-				#idx is which card we should have chosen. normalize it
-				correct_output = 0 #idx/(len(self.my_last_hand) - 1)
-				error = correct_output - self.last_output
-			else:#when opp overpays, we want to throw away our lowest card
-				error = 0 - self.last_output			
-			#print(error)
-			output_delta = error*nonlin(self.output_layer, deriv=True)
-			#print(output_delta)
-			middle_error = output_delta.dot(self.syn1.T)
-			#print(middle_error)
-			middle_delta = middle_error*nonlin(self.middle_layer, deriv=True)
-			#print(self.middle_layer)
-			#print(self.syn1)
-			#print(self.middle_layer.T)
-			self.syn1 += self.middle_layer.T.dot(output_delta)
-			self.syn0 += self.input_layer.T.dot(middle_delta)
-			#I'll do some extra training here somehow
+			self.alpha = (self.num_games - self.game_counter)/self.num_games
+		else:
+			self.alpha = 2
+		#not the first turn and should learn what happened
+		opp_last_play = sum(self.opp_last_hand)
+		opp_desire = opp_last_play - self.last_prize_card #how much did opp want the card?
+		
+		#normalize the error
+		if(opp_desire < self.opp_trust):
+			#opp didn't overpay for the card, so we should have won by one point
+			idx = 0
+			for card in self.my_last_hand:
+				if(card > (opp_last_play + self.win_harder)):
+					break
+				else:
+					idx += 1
+			#idx is which card we should have chosen. normalize it
+			correct_output = 0 #idx/(len(self.my_last_hand) - 1)
+			error = correct_output - self.last_output
+		else:#when opp overpays, we want to throw away our lowest card
+			error = 0 - self.last_output			
+		#print(error)
 
+		output_delta = error*nonlin(self.output_layer, deriv=True)
+		middle1_error = output_delta.dot(self.syn2.T)
+		middle1_delta = middle1_error*nonlin(self.middle1_layer, deriv=True)
+		middle0_error = middle1_delta.dot(self.syn1.T)
+		middle0_delta = middle0_error*nonlin(self.middle0_layer, deriv=True)
+
+		self.syn2 += self.alpha*self.middle1_layer.T.dot(output_delta)
+		self.syn1 += self.alpha*self.middle0_layer.T.dot(middle1_delta)
+		self.syn0 += self.alpha*self.input_layer.T.dot(middle0_delta)
+		self.alpha = (self.num_games - self.game_counter)/self.num_games
+		#I'll do some extra training here somehow
+		self.game_counter += 1
 
 	def take_turn(self, game_state, verbose = False):
 		num_cards_remaining = len(game_state.current_prizes)
@@ -77,7 +86,7 @@ class Simple3NeuralBot(BasicBot):
 		my_current_hand = game_state.current_hands[self.player_num]
 		opp_current_hand = game_state.current_hands[1 - self.player_num]
 
-		if(num_cards_remaining < self.num_cards):
+		if(len(self.input_layer) != 0):
 			#not the first turn and should learn what happened
 			opp_last_play = sum(self.opp_last_hand) - sum(opp_current_hand)
 			opp_desire = opp_last_play - self.last_prize_card #how much did opp want the card?
@@ -87,41 +96,46 @@ class Simple3NeuralBot(BasicBot):
 				#opp didn't overpay for the card, so we should have won by one point
 				idx = 0
 				for card in self.my_last_hand:
-					if(card > opp_last_play):
+					if(card > (opp_last_play + self.win_harder)):
 						break
 					else:
 						idx += 1
 				#idx is which card we should have chosen. normalize it
-				correct_output = idx/(len(self.my_last_hand) - 1)
+				if(len(self.my_last_hand) <= 1):
+					correct_output = 0
+				else:
+					correct_output = idx/(len(self.my_last_hand)-1)
 				error = correct_output - self.last_output
 			else:#when opp overpays, we want to throw away our lowest card
 				error = 0 - self.last_output			
 			#print(error)
 			output_delta = error*nonlin(self.output_layer, deriv=True)
-			#print(output_delta)
-			middle_error = output_delta.dot(self.syn1.T)
-			#print(middle_error)
-			middle_delta = middle_error*nonlin(self.middle_layer, deriv=True)
-			#print(self.middle_layer)
-			#print(self.syn1)
-			#print(self.middle_layer.T)
-			self.syn1 += self.middle_layer.T.dot(output_delta)
-			self.syn0 += self.input_layer.T.dot(middle_delta)
+			middle1_error = output_delta.dot(self.syn2.T)
+			middle1_delta = middle1_error*nonlin(self.middle1_layer, deriv=True)
+			middle0_error = middle1_delta.dot(self.syn1.T)
+			middle0_delta = middle0_error*nonlin(self.middle0_layer, deriv=True)
+
+			self.syn2 += self.alpha*self.middle1_layer.T.dot(output_delta)
+			self.syn1 += self.alpha*self.middle0_layer.T.dot(middle1_delta)
+			self.syn0 += self.alpha*self.input_layer.T.dot(middle0_delta)
 			
-
-
-		self.input_layer = np.array([[sum(my_current_hand)/sum(range(1,self.num_cards +1)), sum(opp_current_hand)/sum(range(1,self.num_cards +1)), game_state.prize_this_round/sum(range(1,self.num_cards +1))]])
+		self.input_layer = np.array([[sum(my_current_hand)/sum(range(1,self.num_cards +1)), sum(opp_current_hand)/sum(range(1,self.num_cards +1)), game_state.prize_this_round/sum(range(1,self.num_cards +1)), len(game_state.current_prizes)/self.num_cards]])
 		#print(input_layer)
 
-		self.middle_layer = np.array(nonlin(np.dot(self.input_layer, self.syn0)))
-		self.output_layer = np.array(nonlin(np.dot(self.middle_layer, self.syn1)))
+		self.middle0_layer = np.array(nonlin(np.dot(self.input_layer, self.syn0)))
+		self.middle1_layer = np.array(nonlin(np.dot(self.middle0_layer, self.syn1)))
+		self.output_layer = np.array(nonlin(np.dot(self.middle1_layer, self.syn2)))
 		#print(output_layer)
 		self.my_last_play = my_current_hand[int(self.output_layer[0]*len(my_current_hand))]
 		self.opp_last_hand = opp_current_hand
 		self.my_last_hand = my_current_hand
 		self.last_prize_card = game_state.prize_this_round
 		self.last_output = self.output_layer[0]
-		return self.my_last_play
+
+		if(self.alpha > 0.95):
+			return min(my_current_hand)
+		else:
+			return self.my_last_play
 	
 class shiftBot(BasicBot):
 	def __init__(self, player_num, num_players, num_cards, num_games):
