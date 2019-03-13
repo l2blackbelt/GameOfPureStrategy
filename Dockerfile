@@ -34,5 +34,6 @@ ENV FILES_TO_COMMIT="."
 
 
 # Run entrypoint
+RUN pip install -r requirements.txt
 COPY entrypoint.sh /app
 CMD /bin/sh entrypoint.sh
