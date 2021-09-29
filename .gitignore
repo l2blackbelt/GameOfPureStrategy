@@ -2,3 +2,4 @@ __pycache__
 *.pyc
 /bot_scores.md
 /data.json
+.idea

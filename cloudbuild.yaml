@@ -1,13 +1,27 @@
-#This cloudbuild.yaml runs regression on all bots to make sure they can all play correctly.
+#This is the cloudbuild file that generates the new scoreboard
+# run on a trigger in google cloud builds when it detects a modification to a file in /bots
 
 
+timeout: 9001s #2.5 hour time-out
+options:
+#  machineType: 'E2_MEDIUM' #could be 32 as well 'N1_HIGHCPU_32'
 steps:
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/docker', '.' ]
-- name: 'gcr.io/cloud-builders/docker'
-  args: [ 'run', 'gcr.io/$PROJECT_ID/docker']
+#spin up a docker container to pull the latest version of the program
 
+- name: 'jupyter/scipy-notebook:notebook-6.4.4'
+  entrypoint: 'python3'
+  args: ['scoreboard.py', $WORKDIR]
+  # entrypoint: 'bash'
+  # args:
+  # - '-c'
+  # - |
+  #    ls -la
+  #   python3 scoreboard.py $(git diff --name-only HEAD HEAD~1)
 
-images:
-- 'gcr.io/$PROJECT_ID/docker'
+#save output json file to cloud storage
+artifacts:
+  objects:
+    location: gs://gops-results/
+    paths:
+      - data_out.json
