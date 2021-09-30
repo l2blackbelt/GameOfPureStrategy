@@ -11,7 +11,7 @@ steps:
 
 - name: 'jupyter/scipy-notebook:notebook-6.4.4'
   entrypoint: 'python3'
-  args: ['scoreboard.py', $WORKDIR]
+  args: ['scoreboard.py']
   # entrypoint: 'bash'
   # args:
   # - '-c'
