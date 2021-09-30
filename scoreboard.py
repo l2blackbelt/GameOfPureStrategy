@@ -1,8 +1,15 @@
 import json
 import multiprocessing as mp
+import os
 
-data_file = "data_out.json"
 readme_file = "scoreboard_out.md"
+data_file = "data_out.json"
+
+
+if os.getenv('DOCKER'):
+    data_file = "/home/jovyan/data_out.json"
+    readme_file = "/home/jovyan/scoreboard_out.md"
+
 
 # any bot class names to leave off the scoreboard for various reasons.
 bots_to_skip = ["HumanBot", "WatchingBot", "InterestingBot_2", "SampleBot"]
@@ -71,7 +78,7 @@ def _generate_json(num_games, num_cards, bot_names):
     # generate bot combinations; either all bots vs all others, or just run specified bots vs all others
     if bot_names:
         # scoreboard update: just pit the named bots vs all others
-        with open(data_file, 'r') as infile:
+        with open('scoreboard/data.json', 'r') as infile:
             bot_results = json.load(infile)
         # print(bot_results)
         combinations = []
@@ -188,7 +195,11 @@ def generate_scoreboard(num_games=10, num_cards=13, bot_names=None):
 
 if __name__ == "__main__":
     import sys
+    print("--ARGV--")
 
     for arg in sys.argv:
+
         print(arg)
-    generate_scoreboard()
+    print("--ARGV--")
+
+    generate_scoreboard(bot_names=['SmarterLearningBot','Simple3NeuralBot'])
