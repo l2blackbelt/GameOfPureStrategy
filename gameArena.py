@@ -7,9 +7,10 @@ from gameOfPureStrategy import GameOfPureStrategy
 
 """
 GameArena
+prize_order == 'random', 'sequential'
 """
 class GameArena:
-	def __init__(self, num_cards, num_games, player_arr=[]):
+	def __init__(self, num_cards, num_games, player_arr=None, prize_order='random' ):
 		self.player_arr = player_arr
 		self.num_cards = num_cards
 		self.num_games = num_games
@@ -17,8 +18,12 @@ class GameArena:
 		self.win_counter = [0 for player in range(0,self.num_players)] #all players start at 0 wins
 		self.tie_counter = 0
 		self.current_players = [] #array that contains the player objects, in case I want to look at them when it's over
-
-	def play(self, play_method):
+		self.prize_order = prize_order
+	"""
+	set play_method to "print last game" to only show verbose console output for the last match.  
+	Or "verbose" to print every game. (:
+	"""
+	def play(self, play_method="quiet"):
 		self.start = time.time()
 
 
@@ -44,7 +49,7 @@ class GameArena:
 				verbose = False
 
 
-			game = GameOfPureStrategy(self.num_cards, self.num_players, verbose=verbose)
+			game = GameOfPureStrategy(self.num_cards, self.num_players, verbose=verbose, prize_order=self.prize_order)
 
 
 			#start game

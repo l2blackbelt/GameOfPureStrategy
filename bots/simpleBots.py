@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import random
+from utils.log import log
 
 """
 BasicBot
@@ -72,10 +73,18 @@ HumanBot
 this human bot allows a human to play via the python command line
 """
 class HumanBot(BasicBot):
+	def __init__(self, player_num, num_players, num_cards, num_games):
+		#Bot is initialized once at the beginning of the competition, and persists between games.
+		self.player_num = player_num
+		self.num_players = num_players
+		self.num_cards = num_cards
+		self.num_games = num_games
+		return
 	def take_turn(self, game_state, verbose = False):
 
-		log(self,"--You are player "+str(self.player_num))
-		log(self,"--Current prize card: "+str(game_state.prize_this_round))
+		log(self,"--You are player {}".format(self.player_num))
+		log(self,"--Current prize card: {}".format(game_state.prize_this_round))
+		log(self, 'Predicted Value: {}'.format(predictedValueCalculator(self, game_state)))
 
 		play_ok = False
 		while(play_ok == False):
@@ -94,3 +103,50 @@ class HumanBot(BasicBot):
 				play_ok = True
 
 		return human_play
+
+"""
+calculate predicted value loss =0, tie = 0.5, win =1 revisit.
+todo:
+formalize in numbers what it means to be only able to tie, or also lose next move.  I think this would be 0.25  (half shot of tying)
+"""
+def predictedValueCalculator(chosen_bot, game_state):
+	num_cards = game_state.num_cards
+	my_id = chosen_bot.player_num
+
+	my_score = game_state.current_scores[my_id]
+	their_score = game_state.current_scores[1-my_id]
+	my_hand = game_state.current_hands[my_id]
+	their_hand = game_state.current_hands[1-my_id]
+
+	points_available = sum(game_state.current_prizes)
+	points_possible = sum([i+1 for i in range(num_cards)])
+
+	# helpful stats maybe
+	log(chosen_bot, "points available = {}".format(points_available))
+
+	# I wonder how the simplification of summation would actually work?
+	# It's not a general solution by any means but I wanna know how well it plays.
+
+	if num_cards >13 or num_cards <2:
+		return "? good luck."
+
+	# rules cover: 2 card game.
+	# Hands match.  Will "predict" one trivial way to tie.
+	if my_hand == their_hand and my_score == their_score:
+		return 0.5
+
+	# trivial state, you have more points than remain to be gotten
+	if my_score > points_possible/2:
+		return 1
+
+	# trivial state, they have more points than remain to be gotten
+	if their_score > points_available/2:
+		return 0
+
+	#predicted value calculator cannot know anything about either player's stretegy.
+	#therefore in a 3 card game where I try to invert obviousbot, the best I can do is tie, but I could also lose. half chance of tying = 0.25
+	#
+	if num_cards == 3:
+		if
+	return "ohhhh sheeeeeeit"
+

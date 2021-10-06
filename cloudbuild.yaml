@@ -4,10 +4,10 @@
 
 timeout: 9001s #2.5 hour time-out
 options:
-#  machineType: 'E2_MEDIUM' #could be 32 as well 'N1_HIGHCPU_32'
+  machineType: 'UNSPECIFIED' # 'N1_HIGHCPU_8' # 'E2_HIGHCPU_32'
 steps:
 
-# spin up a docker container to pull the latest version of the program
+# spin up a docker container to do the scoreboard generation
 - name: 'jupyter/scipy-notebook:notebook-6.4.4'
   entrypoint: 'bash'
   env:
@@ -20,6 +20,8 @@ steps:
     ls -la /home/jovyan
     ls -la
     python3 scoreboard.py $(git diff --name-only HEAD HEAD~1)
+    chmod 777 /home/jovyan/data_out.json
+    chmod 777 /home/jovyan/scoreboard_out.md
     ls -la /home/jovyan
 
 # save output json file to cloud storage
@@ -29,3 +31,8 @@ artifacts:
     paths:
       - /home/jovyan/data_out.json
       - /home/jovyan/scoreboard_out.md
+
+# --NOTES
+# To download a directory named folder from your cloud bucket 
+# named my-bucket into the current location 
+#  gsutil cp -r gs://my-bucket/folder .
