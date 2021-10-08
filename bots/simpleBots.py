@@ -143,7 +143,7 @@ def predictedValueCalculator(chosen_bot, game_state):
 	if their_score > points_available/2:
 		return 0
 
-	#predicted value calculator cannot know anything about either player's stretegy.
+	#predicted value calculator cannot know anything about either player's strategy.
 	#therefore in a 3 card game where I try to invert obviousbot, the best I can do is tie, but I could also lose. half chance of tying = 0.25
 	#
 	if num_cards == 3:
